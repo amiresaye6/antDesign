@@ -1,0 +1,12 @@
+{
+    "welcomeBack": "Welcome back",
+    "signInToAccount": "Sign in to your account",
+    "pleaseEnterEmail": "Please enter your email",
+    "pleaseEnterPassword": "Please enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "dontHaveAccount": "Don't have an account?",
+    "registerNow": "Register now",
+    "loginSuccessful": "Login successful!"
+  }

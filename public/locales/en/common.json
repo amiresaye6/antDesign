@@ -1,0 +1,15 @@
+{
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Create a secure password",
+    "required": "Required",
+    "invalidEmail": "Invalid email format",
+    "or": "or",
+    "language": "Language",
+    "placeholderFirstName": "Amir",
+    "placeholderLastName": "Alsayed",
+    "login": "Login",
+    "signup": "Signup",
+    "ContinuewithGoogle": "Continue with Google"
+  }

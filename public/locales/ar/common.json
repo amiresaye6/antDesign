@@ -1,0 +1,15 @@
+{
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "example@email.com",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "أنشئ كلمة مرور آمنة",
+    "required": "مطلوب",
+    "invalidEmail": "تنسيق البريد الإلكتروني غير صالح",
+    "or": "أو",
+    "language": "اللغة",
+    "placeholderFirstName": "أمير",
+    "placeholderLastName": "السيد",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "ContinuewithGoogle": "أكمل عن طريق جوجل"
+  }

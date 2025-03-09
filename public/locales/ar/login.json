@@ -1,0 +1,12 @@
+{
+    "welcomeBack": "مرحبًا بعودتك",
+    "signInToAccount": "تسجيل الدخول إلى حسابك",
+    "pleaseEnterEmail": "يرجى إدخال بريدك الإلكتروني",
+    "pleaseEnterPassword": "يرجى إدخال كلمة المرور",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "signIn": "تسجيل الدخول",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "registerNow": "سجل الآن",
+    "loginSuccessful": "تم تسجيل الدخول بنجاح!"
+  }
