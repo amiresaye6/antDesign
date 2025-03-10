@@ -272,7 +272,7 @@ const ForgotPasswordCard = () => {
 
   return (
     <ConfigProvider locale={locale} direction={direction}>
-      <Flex justify="center" align="center" style={{ minHeight: '100vh', background: '#f0f2f5' }}>
+      <Flex justify="center" align="center" style={{ minHeight: '100vh'}}>
         <Card
           style={{
             width: 400,

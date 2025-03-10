@@ -52,3 +52,89 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+
+
+/* global.css */
+
+:root {
+  --primary-color: #646cff;
+  --primary-hover: #747bff;
+}
+
+/* Apply theme variables to body */
+body[data-theme='light'] {
+  --background-color: #f0f2f5;
+  --text-color: rgba(0, 0, 0, 0.88);
+  --component-background: #ffffff;
+  --border-color: #d9d9d9;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body[data-theme='dark'] {
+  --background-color: #121212;
+  --text-color: rgba(255, 255, 255, 0.85);
+  --component-background: #1f1f1f;
+  --border-color: #303030;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Ensure smooth transitions between themes */
+body, .ant-menu, .ant-layout, .ant-layout-header, .ant-layout-content, 
+.ant-card, .ant-typography, .ant-btn, .ant-input {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* For better integration with your existing components */
+html.dark .login-card,
+html.dark .signup-card,
+html.dark .forgot-password-card {
+  background-color: var(--component-background);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.custom-navigation-menu .ant-menu-item {
+  color: var(--text-color);
+  margin: 4px 8px;
+  border-radius: 4px;
+}
+
+.custom-navigation-menu .ant-menu-item:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.custom-navigation-menu .ant-menu-item-selected {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.custom-navigation-menu .ant-menu-item-selected::after {
+  border-right-color: var(--primary-color);
+}
+
+/* Remove default margin and adjust layout for fixed sidebar */
+.ant-layout-has-sider {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Adjust inner layout to account for fixed sidebar width */
+.ant-layout.site-layout {
+  margin-left: 200px;
+  transition: margin-left 0.2s;
+}
+
+.ant-layout.site-layout.collapsed {
+  margin-left: 80px;
+}
+
+/* Media query for mobile */
+@media (max-width: 991px) {
+  .ant-layout.site-layout {
+    margin-left: 0;
+  }
+}
