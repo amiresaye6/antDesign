@@ -4,26 +4,29 @@ import { useTranslation } from 'react-i18next';
 import UsersList from '../components/UsersList';
 import UserRolesPermissions from '../components/UserRolesPermissions';
 
-
 const UserManagement = () => {
-  const { t } = useTranslation('common');
-  return (
-    <Tabs
-      defaultActiveKey="1"
-      items={[
-        {
-          key: '1',
-          label: t('usersList'),
-          children: <UsersList />,
-        },
-        {
-          key: '2',
-          label: t('rolesPermissions'),
-          children: <UserRolesPermissions />,
-        },
-      ]}
-    />
-  );
+    const { t } = useTranslation('usersPage');
+
+    return (
+        <div className="user-management-container">
+            <h1>{t('userManagement')}</h1>
+            <Tabs
+                defaultActiveKey="1"
+                items={[
+                    {
+                        key: '1',
+                        label: t('usersList'),
+                        children: <UsersList />
+                    },
+                    {
+                        key: '2',
+                        label: t('rolesPermissions'),
+                        children: <UserRolesPermissions />
+                    }
+                ]}
+            />
+        </div>
+    );
 };
 
 export default UserManagement;

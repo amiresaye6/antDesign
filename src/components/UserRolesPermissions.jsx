@@ -1,40 +1,54 @@
 // components/UserManagement/UserRolesPermissions.js
 import React, { useState } from 'react';
-import { Table, Button, Modal, Form, Input, Checkbox } from 'antd';
+import { Table, Button, Modal, Form, Input, Checkbox, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const UserRolesPermissions = () => {
+  const { t } = useTranslation('usersPage');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editingRole, setEditingRole] = useState(null);
   const [form] = Form.useForm();
 
   // Mock data - replace with your actual data source linked to roles table
   const data = [
-    { key: '1', role: 'Admin', permissions: ['read', 'write', 'delete'] },
-    { key: '2', role: 'Owner', permissions: ['read', 'write'] },
-    { key: '3', role: 'User', permissions: ['read'] },
+    { key: '1', role: 'admin', permissions: ['read', 'write', 'delete'] },
+    { key: '2', role: 'owner', permissions: ['read', 'write'] },
+    { key: '3', role: 'user', permissions: ['read'] },
   ];
+
+  const allPermissions = ['read', 'write', 'delete', 'manage'];
 
   const columns = [
     {
-      title: 'Role',
+      title: t('role'),
       dataIndex: 'role',
       key: 'role',
+      render: (role) => t(role)
     },
     {
-      title: 'Permissions',
+      title: t('permissions'),
       dataIndex: 'permissions',
       key: 'permissions',
-      render: (permissions) => permissions.join(', '),
+      render: (permissions) => permissions.map(perm => t(perm)).join(', '),
     },
     {
-      title: 'Actions',
+      title: t('actions'),
       key: 'actions',
       render: (_, record) => (
-        <Button onClick={() => showEditModal(record)}>Edit</Button>
+        <Space size="middle">
+          <Button type="link" onClick={() => showEditModal(record)}>
+            {t('edit')}
+          </Button>
+          <Button type="link" danger>
+            {t('delete')}
+          </Button>
+        </Space>
       ),
     },
   ];
 
   const showEditModal = (record) => {
+    setEditingRole(record);
     form.setFieldsValue({
       role: record.role,
       permissions: record.permissions,
@@ -42,10 +56,16 @@ const UserRolesPermissions = () => {
     setIsModalVisible(true);
   };
 
+  const showAddModal = () => {
+    setEditingRole(null);
+    form.resetFields();
+    setIsModalVisible(true);
+  };
+
   const handleOk = () => {
     form.validateFields().then(values => {
-      console.log('Updated role:', values);
-      // Add your update logic here
+      console.log(editingRole ? 'Updated role:' : 'New role:', values);
+      // Add your update/create logic here
       setIsModalVisible(false);
       form.resetFields();
     });
@@ -57,50 +77,55 @@ const UserRolesPermissions = () => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <Button 
-        type="primary" 
-        onClick={() => setIsModalVisible(true)}
+    <div className="roles-permissions">
+      <Button
+        type="primary"
+        onClick={showAddModal}
         style={{ marginBottom: 16 }}
       >
-        Add New Role
+        {t('addNewRole')}
       </Button>
+
       <Table
         columns={columns}
         dataSource={data}
-        style={{
-          backgroundColor: 'var(--component-background)',
-          color: 'var(--text-color)',
-        }}
-        pagination={{ pageSize: 10 }}
+        pagination={false}
+        locale={{ emptyText: t('noRoles') }}
       />
+
       <Modal
-        title="Edit Role"
+        title={editingRole ? t('editRole') : t('addNewRole')}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        style={{ color: 'var(--text-color)' }}
+        destroyOnClose={true}
       >
-        <Form form={form} layout="vertical">
+        <Form
+          form={form}
+          layout="vertical"
+          name="roleForm"
+        >
           <Form.Item
             name="role"
-            label="Role Name"
-            rules={[{ required: true, message: 'Please enter role name' }]}
+            label={t('roleName')}
+            rules={[{ required: true, message: t('pleaseEnterRoleName') }]}
           >
             <Input />
           </Form.Item>
+
           <Form.Item
             name="permissions"
-            label="Permissions"
-            rules={[{ required: true, message: 'Please select at least one permission' }]}
+            label={t('permissions')}
           >
-            <Checkbox.Group
-              options={[
-                { label: 'Read', value: 'read' },
-                { label: 'Write', value: 'write' },
-                { label: 'Delete', value: 'delete' },
-              ]}
-            />
+            <Checkbox.Group>
+              <Space direction="vertical">
+                {allPermissions.map(permission => (
+                  <Checkbox key={permission} value={permission}>
+                    {t(permission)}
+                  </Checkbox>
+                ))}
+              </Space>
+            </Checkbox.Group>
           </Form.Item>
         </Form>
       </Modal>

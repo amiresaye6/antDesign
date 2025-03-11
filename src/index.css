@@ -138,3 +138,40 @@ html.dark .forgot-password-card {
     margin-left: 0;
   }
 }
+
+
+
+/* Enhanced table styling for better visibility */
+.ant-table {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px;
+  background-color: var(--component-background);
+}
+
+.ant-table-thead > tr > th {
+  background-color: var(--component-background);
+  color: var(--text-color);
+  border-bottom: 2px solid var(--border-color) !important; /* Stronger header line */
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-color);
+}
+
+/* Hover effect */
+.ant-table-tbody > tr:hover > td {
+  background-color: rgba(100, 108, 255, 0.1); /* Using --primary-color with opacity */
+}
+
+
+/* Adjust light mode border color for better visibility */
+body[data-theme='light'] {
+  --background-color: #f0f2f5;
+  --text-color: rgba(0, 0, 0, 0.88);
+  --component-background: #ffffff;
+  --border-color: #b0b0b0; /* Darkened from #d9d9d9 for better contrast */
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import { Table, Input, Select, Button, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 const UsersList = () => {
+  const { t } = useTranslation('usersPage');
   const [searchText, setSearchText] = useState('');
   const [filterRole, setFilterRole] = useState('all');
 
@@ -18,59 +20,74 @@ const UsersList = () => {
 
   const columns = [
     {
-      title: 'Name',
+      title: t('name'),
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Email',
+      title: t('email'),
       dataIndex: 'email',
       key: 'email',
     },
     {
-      title: 'Role',
+      title: t('role'),
       dataIndex: 'role',
       key: 'role',
+      render: (role) => t(role)
     },
+    {
+      title: t('actions'),
+      key: 'actions',
+      // eslint-disable-next-line no-unused-vars
+      render: (_, record) => (
+        <Space size="middle">
+          <Button type="link">{t('edit')}</Button>
+          <Button type="link" danger>{t('delete')}</Button>
+        </Space>
+      ),
+    }
   ];
 
-  const filteredData = data.filter(user => 
+  const filteredData = data.filter(user =>
     (filterRole === 'all' || user.role === filterRole) &&
     (user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-     user.email.toLowerCase().includes(searchText.toLowerCase()))
+      user.email.toLowerCase().includes(searchText.toLowerCase()))
   );
 
   return (
-    <div style={{ padding: 24 }}>
-      <Space direction="vertical" style={{ width: '100%', marginBottom: 16 }}>
+    <div className="users-list">
+      <div className="filter-container" style={{ marginBottom: 16 }}>
         <Space>
           <Input
-            placeholder="Search users..."
             prefix={<SearchOutlined />}
+            placeholder={t('searchUsers')}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             style={{ width: 200 }}
           />
+
           <Select
             defaultValue="all"
-            style={{ width: 120 }}
+            style={{ width: 150 }}
             onChange={(value) => setFilterRole(value)}
           >
-            <Option value="all">All Roles</Option>
-            <Option value="admin">Admin</Option>
-            <Option value="owner">Owner</Option>
-            <Option value="user">User</Option>
+            <Option value="all">{t('allRoles')}</Option>
+            <Option value="admin">{t('admin')}</Option>
+            <Option value="owner">{t('owner')}</Option>
+            <Option value="user">{t('user')}</Option>
           </Select>
+
+          <Button type="primary">
+            {t('addUser')}
+          </Button>
         </Space>
-      </Space>
+      </div>
+
       <Table
         columns={columns}
         dataSource={filteredData}
-        style={{
-          backgroundColor: 'var(--component-background)',
-          color: 'var(--text-color)',
-        }}
         pagination={{ pageSize: 10 }}
+        locale={{ emptyText: t('noUsers') }}
       />
     </div>
   );
