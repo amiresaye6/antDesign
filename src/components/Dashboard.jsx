@@ -7,13 +7,13 @@ import {
   Card,
   Row,
   Col,
-  Badge,
   Dropdown,
   Button,
   Avatar,
   Rate,
   Input,
-  Select
+  Select,
+  Statistic
 } from 'antd';
 import {
   FacebookOutlined,
@@ -21,8 +21,6 @@ import {
   WhatsAppOutlined,
   TwitterOutlined,
   MoreOutlined,
-  SearchOutlined,
-  FilterOutlined,
   UserOutlined,
   ClockCircleOutlined,
   MailOutlined,
@@ -67,14 +65,19 @@ const getChannelIcon = (channel) => {
 const getStatusColor = (status) => {
   switch (status.toLowerCase()) {
     case 'new':
+    case 'جديد':
       return 'blue';
     case 'active':
+    case 'نشط':
       return 'green';
     case 'pending':
+    case 'قيد الانتظار':
       return 'orange';
     case 'resolved':
+    case 'تم الحل':
       return 'green';
     case 'closed':
+    case 'مغلق':
       return 'gray';
     default:
       return 'default';
@@ -164,25 +167,25 @@ const testData = [
 ];
 
 const ChannelDashboard = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('messagesDashboard');
   const [data, setData] = useState(testData);
   const [searchText, setSearchText] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedChannel, setSelectedChannel] = useState('All');
 
   // More actions menu items
-  const moreActions = (record) => [
+  const moreActions = () => [
     {
       key: 'assign',
-      label: 'Assign to agent',
+      label: t('assignToAgent'),
     },
     {
       key: 'archive',
-      label: 'Archive conversation',
+      label: t('archiveConversation'),
     },
     {
       key: 'block',
-      label: 'Block user',
+      label: t('blockUser'),
       danger: true,
     },
   ];
@@ -212,10 +215,10 @@ const ChannelDashboard = () => {
   // Table columns
   const columns = [
     {
-      title: 'Channel',
+      title: t('channel'),
       dataIndex: 'channel',
       key: 'channel',
-      width: 100,
+      width: 140,
       render: channel => (
         <Space>
           {getChannelIcon(channel)}
@@ -224,7 +227,7 @@ const ChannelDashboard = () => {
       ),
     },
     {
-      title: 'Contact',
+      title: t('contact'),
       dataIndex: 'name',
       key: 'name',
       width: 220,
@@ -246,7 +249,7 @@ const ChannelDashboard = () => {
       ),
     },
     {
-      title: 'Message',
+      title: t('message'),
       dataIndex: 'message',
       key: 'message',
       render: (message, record) => (
@@ -262,21 +265,21 @@ const ChannelDashboard = () => {
       ),
     },
     {
-      title: 'Status',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       width: 100,
       render: status => (
         <Tag color={getStatusColor(status)}>
-          {status}
+          {t(status.toLowerCase())}
         </Tag>
       ),
     },
     {
-      title: 'Rating',
+      title: t('rating'),
       dataIndex: 'rating',
       key: 'rating',
-      width: 150,
+      width: 180,
       render: (rating, record) => (
         <Rate
           disabled={false}
@@ -286,7 +289,7 @@ const ChannelDashboard = () => {
       ),
     },
     {
-      title: 'Actions',
+      title: t('actions'),
       key: 'actions',
       width: 80,
       render: (_, record) => (
@@ -298,11 +301,11 @@ const ChannelDashboard = () => {
   ];
 
   return (
-    <Card style={{ width: '100%' }}>
+    <>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <Row gutter={24} align="middle">
           <Col xs={24} sm={12}>
-            <Title level={4}>Customer Communications Dashboard</Title>
+            <Title level={4}>{t('dashboardTitle')}</Title>
           </Col>
           <Col xs={24} sm={12}>
             <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
@@ -311,7 +314,7 @@ const ChannelDashboard = () => {
                 style={{ width: 120 }}
                 onChange={value => setSelectedChannel(value)}
               >
-                <Option value="All">All Channels</Option>
+                <Option value="All">{t('allChannels')}</Option>
                 <Option value="Facebook">Facebook</Option>
                 <Option value="Instagram">Instagram</Option>
                 <Option value="TikTok">TikTok</Option>
@@ -323,15 +326,15 @@ const ChannelDashboard = () => {
                 style={{ width: 120 }}
                 onChange={value => setSelectedStatus(value)}
               >
-                <Option value="All">All Status</Option>
-                <Option value="New">New</Option>
-                <Option value="Active">Active</Option>
-                <Option value="Pending">Pending</Option>
-                <Option value="Resolved">Resolved</Option>
-                <Option value="Closed">Closed</Option>
+                <Option value="All">{t('allStatus')}</Option>
+                <Option value="New">{t('new')}</Option>
+                <Option value="Active">{t('active')}</Option>
+                <Option value="Pending">{t('pending')}</Option>
+                <Option value="Resolved">{t('resolved')}</Option>
+                <Option value="Closed">{t('closed')}</Option>
               </Select>
               <Search
-                placeholder="Search..."
+                placeholder={t('searchPlaceholder')}
                 allowClear
                 onSearch={value => setSearchText(value)}
                 onChange={e => setSearchText(e.target.value)}
@@ -348,22 +351,22 @@ const ChannelDashboard = () => {
                 <Row gutter={16}>
                   <Col xs={12} sm={6}>
                     <Card size="small">
-                      <Statistic title="Total" value={data.length} />
+                      <Statistic title={t('total')} value={data.length} />
                     </Card>
                   </Col>
                   <Col xs={12} sm={6}>
                     <Card size="small">
-                      <Statistic title="New" value={data.filter(item => item.status === 'New').length} />
+                      <Statistic title={t('new')} value={data.filter(item => item.status === 'New').length} />
                     </Card>
                   </Col>
                   <Col xs={12} sm={6}>
                     <Card size="small">
-                      <Statistic title="Active" value={data.filter(item => item.status === 'Active').length} />
+                      <Statistic title={t('active')} value={data.filter(item => item.status === 'Active').length} />
                     </Card>
                   </Col>
                   <Col xs={12} sm={6}>
                     <Card size="small">
-                      <Statistic title="Pending" value={data.filter(item => item.status === 'Pending').length} />
+                      <Statistic title={t('pending')} value={data.filter(item => item.status === 'Pending').length} />
                     </Card>
                   </Col>
                 </Row>
@@ -380,11 +383,8 @@ const ChannelDashboard = () => {
           scroll={{ x: 'max-content' }}
         />
       </Space>
-    </Card>
+    </>
   );
 };
-
-// Import Statistic to fix the component not showing error
-import { Statistic } from 'antd';
 
 export default ChannelDashboard;

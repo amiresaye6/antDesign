@@ -11,32 +11,9 @@ import Home from './components/Home';
 import OverView from './components/OverView';
 import Navigation from './components/Navigation';
 import HeaderComponent from './components/Header';
-import UsersList from './components/UsersList';
-import UserRolesPermissions from './components/UserRolesPermissions';
+import UserManagement from './pages/usersPage';
 
 const { Content } = Layout;
-
-
-const UserManagement = () => {
-  const { t } = useTranslation('common');
-  return (
-    <Tabs
-      defaultActiveKey="1"
-      items={[
-        {
-          key: '1',
-          label: t('usersList'),
-          children: <UsersList />,
-        },
-        {
-          key: '2',
-          label: t('rolesPermissions'),
-          children: <UserRolesPermissions />,
-        },
-      ]}
-    />
-  );
-};
 
 
 const App = () => {

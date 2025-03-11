@@ -1,0 +1,21 @@
+{
+    "dashboardTitle": "Customer Communications Dashboard",
+    "channel": "Channel",
+    "contact": "Contact",
+    "message": "Message",
+    "status": "Status",
+    "rating": "Rating",
+    "actions": "Actions",
+    "assignToAgent": "Assign to agent",
+    "archiveConversation": "Archive conversation",
+    "blockUser": "Block user",
+    "allChannels": "All Channels",
+    "allStatus": "All Status",
+    "new": "New",
+    "active": "Active",
+    "pending": "Pending",
+    "resolved": "Resolved",
+    "closed": "Closed",
+    "searchPlaceholder": "Search...",
+    "total": "Total"
+}

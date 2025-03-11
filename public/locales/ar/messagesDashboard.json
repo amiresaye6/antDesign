@@ -1,0 +1,21 @@
+{
+    "dashboardTitle": "لوحة تحكم اتصالات العملاء",
+    "channel": "القناة",
+    "contact": "جهة الاتصال",
+    "message": "الرسالة",
+    "status": "الحالة",
+    "rating": "التقييم",
+    "actions": "الإجراءات",
+    "assignToAgent": "تعيين للوكيل",
+    "archiveConversation": "أرشفة المحادثة",
+    "blockUser": "حظر المستخدم",
+    "allChannels": "جميع القنوات",
+    "allStatus": "جميع الحالات",
+    "new": "جديد",
+    "active": "نشط",
+    "pending": "قيد الانتظار",
+    "resolved": "تم الحل",
+    "closed": "مغلق",
+    "searchPlaceholder": "بحث...",
+    "total": "المجموع"
+}
