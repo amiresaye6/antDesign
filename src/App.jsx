@@ -4,9 +4,9 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import LoginCard from './components/loginCard';
 import SignupCard from './components/SignupCard';
 import ForgotPasswordCard from './components/ForgotPasswordCard';
-import { Layout, theme, ConfigProvider, Tabs } from 'antd';
+import { Layout, theme, ConfigProvider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import ChannelDashboard from './components/Dashboard';
+import ChannelsDashboard from './components/ChannelsDashboard';
 import Home from './components/Home';
 import OverView from './components/OverView';
 import Navigation from './components/Navigation';
@@ -98,10 +98,11 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/overview" element={<OverView />} />
+              <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
+              <Route path="/posting-dashboard" element={<ChannelsDashboard />} />
               <Route path="/login" element={<LoginCard />} />
               <Route path="/signup" element={<SignupCard />} />
               <Route path="/forgotPassword" element={<ForgotPasswordCard />} />
-              <Route path="/dashboard" element={<ChannelDashboard />} />
               <Route path="/user-management" element={<UserManagement />} />
             </Routes>
           </Content>

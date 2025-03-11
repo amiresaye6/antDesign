@@ -166,7 +166,7 @@ const testData = [
   },
 ];
 
-const ChannelDashboard = () => {
+const ChannelsDashboard = () => {
   const { t } = useTranslation('messagesDashboard');
   const [data, setData] = useState(testData);
   const [searchText, setSearchText] = useState('');
@@ -387,4 +387,4 @@ const ChannelDashboard = () => {
   );
 };
 
-export default ChannelDashboard;
+export default ChannelsDashboard;

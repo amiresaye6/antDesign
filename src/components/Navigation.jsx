@@ -8,15 +8,18 @@ import {
   HomeOutlined,
   UserOutlined,
   DashboardOutlined,
+  FileTextOutlined,
+  AppstoreOutlined,
   LoginOutlined,
-  UserAddOutlined
+  UserAddOutlined,
+  MailOutlined,
+  ContactsOutlined
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
 const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
   const { t } = useTranslation('common');
-
   const menuItems = [
     {
       key: '/',
@@ -29,13 +32,28 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
       label: <Link to="/user-management">{t('userManagement')}</Link>,
     },
     {
-      key: '/dashboard',
-      icon: <DashboardOutlined />,
-      label: <Link to="/dashboard">{t('dashboard')}</Link>,
+      key: '/channels-dashboard',
+      icon: <AppstoreOutlined />,
+      label: <Link to="/channels-dashboard">{t('channelsDashboard')}</Link>,
+    },
+    {
+      key: '/posts-dashboard',
+      icon: <FileTextOutlined />,
+      label: <Link to="/posts-dashboard">{t('postsDashboard')}</Link>,
+    },
+    {
+      key: '/campaigns',
+      icon: <MailOutlined />, // Represents marketing/email campaigns
+      label: <Link to="/campaigns">{t('campaigns')}</Link>,
+    },
+    {
+      key: '/crm',
+      icon: <ContactsOutlined />, // Represents customer contacts/data
+      label: <Link to="/crm">{t('crm')}</Link>,
     },
     {
       key: '/overview',
-      icon: <UserOutlined />,
+      icon: <DashboardOutlined />,
       label: <Link to="/overview">{t('overview')}</Link>,
     },
     {

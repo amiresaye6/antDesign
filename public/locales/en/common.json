@@ -13,7 +13,10 @@
   "signup": "Signup",
   "ContinuewithGoogle": "Continue with Google",
   "home": "Home",
-  "dashboard": "Dashboard",
+  "channelsDashboard": "Channels",
+  "postsDashboard": "Posts",
+  "campaigns": "Campaigns",
+  "crm": "CRM",
   "overview": "Overview",
   "userManagement": "User Management"
 }
