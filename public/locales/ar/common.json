@@ -11,5 +11,8 @@
     "placeholderLastName": "السيد",
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب",
-    "ContinuewithGoogle": "أكمل عن طريق جوجل"
+    "ContinuewithGoogle": "أكمل عن طريق جوجل",
+    "home": "الصفحة الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "overview": "نظرة عامة"
   }

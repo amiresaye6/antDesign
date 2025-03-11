@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card, Row, Col, Button, Space, Typography } from 'antd';
 import { CoffeeOutlined } from '@ant-design/icons'; // Using as temporary tea icon
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
 const Home = () => {
-  const { t } = useTranslation('common');
+  // const { t } = useTranslation('common');
 
   // Sample button data - you can modify these later
   const actions = [
@@ -41,6 +42,7 @@ const Home = () => {
       <Row gutter={[16, 16]}>
         {actions.map((action) => (
           <Col xs={24} sm={12} md={6} key={action.id}>
+            <Link to="/dashboard">
             <Button
               type="primary"
               block
@@ -51,17 +53,7 @@ const Home = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                background: '#1890ff',
-                borderColor: '#1890ff',
                 transition: 'all 0.3s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#40a9ff';
-                e.currentTarget.style.borderColor = '#40a9ff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#1890ff';
-                e.currentTarget.style.borderColor = '#1890ff';
               }}
               // In the future, add: onClick={() => navigate(action.link)}
             >
@@ -72,6 +64,7 @@ const Home = () => {
                 </Text>
               </Space>
             </Button>
+            </Link>
           </Col>
         ))}
       </Row>

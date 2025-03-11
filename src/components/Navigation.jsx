@@ -24,6 +24,11 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
       label: <Link to="/">{t('home')}</Link>,
     },
     {
+      key: '/user-management',
+      icon: <UserOutlined />,
+      label: <Link to="/user-management">{t('userManagement')}</Link>,
+    },
+    {
       key: '/dashboard',
       icon: <DashboardOutlined />,
       label: <Link to="/dashboard">{t('dashboard')}</Link>,

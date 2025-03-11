@@ -11,5 +11,8 @@
     "placeholderLastName": "Alsayed",
     "login": "Login",
     "signup": "Signup",
-    "ContinuewithGoogle": "Continue with Google"
+    "ContinuewithGoogle": "Continue with Google",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "overview": "Overview"
   }

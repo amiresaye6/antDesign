@@ -4,20 +4,45 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import LoginCard from './components/loginCard';
 import SignupCard from './components/SignupCard';
 import ForgotPasswordCard from './components/ForgotPasswordCard';
-import { Layout, theme, ConfigProvider } from 'antd';
+import { Layout, theme, ConfigProvider, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ChannelDashboard from './components/Dashboard';
 import Home from './components/Home';
 import OverView from './components/OverView';
 import Navigation from './components/Navigation';
 import HeaderComponent from './components/Header';
+import UsersList from './components/UsersList';
+import UserRolesPermissions from './components/UserRolesPermissions';
 
 const { Content } = Layout;
+
+
+const UserManagement = () => {
+  const { t } = useTranslation('common');
+  return (
+    <Tabs
+      defaultActiveKey="1"
+      items={[
+        {
+          key: '1',
+          label: t('usersList'),
+          children: <UsersList />,
+        },
+        {
+          key: '2',
+          label: t('rolesPermissions'),
+          children: <UserRolesPermissions />,
+        },
+      ]}
+    />
+  );
+};
+
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
-  const { t, i18n } = useTranslation('common');
+  const { i18n } = useTranslation('common');
   const [direction, setDirection] = useState('ltr');
   
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -100,6 +125,7 @@ const App = () => {
               <Route path="/signup" element={<SignupCard />} />
               <Route path="/forgotPassword" element={<ForgotPasswordCard />} />
               <Route path="/dashboard" element={<ChannelDashboard />} />
+              <Route path="/user-management" element={<UserManagement />} />
             </Routes>
           </Content>
         </Layout>
