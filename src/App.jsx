@@ -12,6 +12,7 @@ import OverView from './components/OverView';
 import Navigation from './components/Navigation';
 import HeaderComponent from './components/Header';
 import UserManagement from './pages/usersPage';
+import PostsDashboard from './components/PostsDashboard';
 
 const { Content } = Layout;
 
@@ -99,11 +100,9 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/overview" element={<OverView />} />
               <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
-              <Route path="/posts-dashboard" element={<ChannelsDashboard />} />
               <Route path="/login" element={<LoginCard />} />
               <Route path="/signup" element={<SignupCard />} />
               <Route path="/forgotPassword" element={<ForgotPasswordCard />} />
-              <Route path="/user-management" element={<UserManagement />} />
             </Routes>
           </Content>
         </Layout>

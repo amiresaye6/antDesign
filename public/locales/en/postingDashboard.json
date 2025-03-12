@@ -1,0 +1,74 @@
+{
+    "postingDashboard": "Posting Dashboard",
+    "createPost": "Create Post",
+    "scheduledPosts": "Scheduled Posts",
+    "analytics": "Analytics",
+    "uploadMedia": "Upload Media",
+    "pleaseUploadMedia": "Please upload an image or video",
+    "selectFile": "Select File",
+    "caption": "Caption",
+    "pleaseEnterCaption": "Please enter a caption",
+    "hashtags": "Hashtags",
+    "hashtagsPlaceholder": "Enter hashtags separated by spaces",
+    "platforms": "Platforms",
+    "schedulePost": "Schedule Post",
+    "scheduledTime": "Scheduled Time",
+    "pleaseSelectTime": "Please select a time",
+    "publish": "Publish Now",
+    "schedule": "Schedule",
+    "reset": "Reset",
+    "preview": "Preview",
+    "previewPlaceholder": "Your post preview will appear here",
+    "selectedPlatforms": "Selected Platforms",
+    "noPlatformsSelected": "No platforms selected",
+    "dragOrClick": "Drag files here or click to upload",
+    "clickOrDragToUpload": "Click or drag file to this area to upload",
+    "supportedFileTypes": "Support for images (JPG, PNG, GIF) and videos (MP4, MOV)",
+    "onlyImageOrVideoAllowed": "You can only upload images or videos",
+    "fileTooLarge": "File must be smaller than 100MB",
+    "videoPreview": "Video Preview",
+    "postSuccess": "Post published successfully!",
+    "postError": "Error publishing post. Please try again.",
+    "media": "Media",
+    "image": "Image",
+    "video": "Video",
+    "content": "Content",
+    "status": "Status",
+    "pending": "Pending",
+    "published": "Published",
+    "actions": "Actions",
+    "confirmDelete": "Are you sure you want to delete this scheduled post?",
+    "yes": "Yes",
+    "no": "No",
+    "noScheduledPosts": "No scheduled posts",
+    "allPlatforms": "All Platforms",
+    "likes": "Likes",
+    "comments": "Comments",
+    "shares": "Shares",
+    "views": "Views",
+    "engagement": "Engagement",
+    "platformBreakdown": "Platform Breakdown",
+    "selectDateRangeForData": "Select a date range to view detailed analytics",
+    "platforms2": {
+        "facebook": {
+            "name": "Facebook",
+            "tooltip": "Post to your Facebook page"
+        },
+        "instagram": {
+            "name": "Instagram",
+            "tooltip": "Post to your Instagram feed"
+        },
+        "twitter": {
+            "name": "Twitter",
+            "tooltip": "Post to your Twitter account"
+        },
+        "linkedin": {
+            "name": "LinkedIn",
+            "tooltip": "Post to your LinkedIn page"
+        },
+        "youtube": {
+            "name": "YouTube",
+            "tooltip": "Upload to your YouTube channel"
+        }
+    }
+}

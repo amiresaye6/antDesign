@@ -1,0 +1,74 @@
+{
+    "postingDashboard": "لوحة النشر",
+    "createPost": "إنشاء منشور",
+    "scheduledPosts": "المنشورات المجدولة",
+    "analytics": "التحليلات",
+    "uploadMedia": "تحميل الوسائط",
+    "pleaseUploadMedia": "يرجى تحميل صورة أو فيديو",
+    "selectFile": "اختر ملف",
+    "caption": "التعليق",
+    "pleaseEnterCaption": "يرجى إدخال تعليق",
+    "hashtags": "هاشتاغ",
+    "hashtagsPlaceholder": "أدخل الهاشتاغ مفصولة بمسافات",
+    "platforms": "المنصات",
+    "schedulePost": "جدولة المنشور",
+    "scheduledTime": "وقت الجدولة",
+    "pleaseSelectTime": "يرجى اختيار وقت",
+    "publish": "نشر الآن",
+    "schedule": "جدولة",
+    "reset": "إعادة تعيين",
+    "preview": "معاينة",
+    "previewPlaceholder": "ستظهر معاينة المنشور هنا",
+    "selectedPlatforms": "المنصات المحددة",
+    "noPlatformsSelected": "لم يتم تحديد منصات",
+    "dragOrClick": "اسحب الملفات هنا أو انقر للتحميل",
+    "clickOrDragToUpload": "انقر أو اسحب الملف إلى هذه المنطقة للتحميل",
+    "supportedFileTypes": "دعم للصور (JPG، PNG، GIF) والفيديو (MP4، MOV)",
+    "onlyImageOrVideoAllowed": "يمكنك تحميل الصور أو الفيديو فقط",
+    "fileTooLarge": "يجب أن يكون حجم الملف أقل من 100 ميغابايت",
+    "videoPreview": "معاينة الفيديو",
+    "postSuccess": "تم نشر المنشور بنجاح!",
+    "postError": "خطأ في نشر المنشور. يرجى المحاولة مرة أخرى.",
+    "media": "الوسائط",
+    "image": "صورة",
+    "video": "فيديو",
+    "content": "المحتوى",
+    "status": "الحالة",
+    "pending": "قيد الانتظار",
+    "published": "منشور",
+    "actions": "الإجراءات",
+    "confirmDelete": "هل أنت متأكد من أنك تريد حذف هذا المنشور المجدول؟",
+    "yes": "نعم",
+    "no": "لا",
+    "noScheduledPosts": "لا توجد منشورات مجدولة",
+    "allPlatforms": "جميع المنصات",
+    "likes": "الإعجابات",
+    "comments": "التعليقات",
+    "shares": "المشاركات",
+    "views": "المشاهدات",
+    "engagement": "التفاعل",
+    "platformBreakdown": "تفصيل المنصات",
+    "selectDateRangeForData": "حدد نطاقًا زمنيًا لعرض التحليلات التفصيلية",
+    "platforms2": {
+        "facebook": {
+            "name": "فيسبوك",
+            "tooltip": "انشر على صفحة الفيسبوك الخاصة بك"
+        },
+        "instagram": {
+            "name": "إنستغرام",
+            "tooltip": "انشر على صفحة إنستغرام الخاصة بك"
+        },
+        "twitter": {
+            "name": "تويتر",
+            "tooltip": "انشر على حساب تويتر الخاص بك"
+        },
+        "linkedin": {
+            "name": "لينكدإن",
+            "tooltip": "انشر على صفحة لينكدإن الخاصة بك"
+        },
+        "youtube": {
+            "name": "يوتيوب",
+            "tooltip": "قم بالتحميل على قناة اليوتيوب الخاصة بك"
+        }
+    }
+}
