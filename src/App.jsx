@@ -1,21 +1,9 @@
-// App.js
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import LoginCard from './components/loginCard';
-import SignupCard from './components/SignupCard';
-import ForgotPasswordCard from './components/ForgotPasswordCard';
-import { Layout, theme, ConfigProvider } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { ConfigProvider, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import ChannelsDashboard from './components/ChannelsDashboard';
-import Home from './components/Home';
-import OverView from './components/OverView';
-import Navigation from './components/Navigation';
-import HeaderComponent from './components/Header';
-import UserManagement from './pages/usersPage';
-import PostsDashboard from './components/PostsDashboard';
-
-const { Content } = Layout;
-
+import AuthLayout from './pages/AuthLayout';
+import MainLayout from './pages/MainLayout';
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,13 +11,15 @@ const App = () => {
   const { i18n } = useTranslation('common');
   const [direction, setDirection] = useState('ltr');
   
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('authToken') ? true : false;
+  });
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme === 'dark' ||
       (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
   });
-
-  const { token } = theme.useToken();
 
   useEffect(() => {
     setDirection(i18n.language === 'ar' ? 'rtl' : 'ltr');
@@ -38,18 +28,18 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-
+    
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-
+    
     const handleStorageChange = () => {
       const currentTheme = localStorage.getItem('theme');
       setIsDarkMode(currentTheme === 'dark');
     };
-
+    
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, [isDarkMode]);
@@ -62,6 +52,16 @@ const App = () => {
     i18n.changeLanguage(value);
   };
 
+  const handleLogin = (token) => {
+    localStorage.setItem('authToken', token);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsAuthenticated(false);
+  };
+
   return (
     <ConfigProvider
       direction={direction}
@@ -72,41 +72,25 @@ const App = () => {
         },
       }}
     >
-      <Layout style={{ minHeight: '100vh', direction }}>
-        <Navigation 
-          collapsed={collapsed} 
-          setCollapsed={setCollapsed} 
+      {isAuthenticated ? (
+        <MainLayout
+          direction={direction}
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
           currentPath={location.pathname}
+          isDarkMode={isDarkMode}
+          toggleTheme={toggleTheme}
+          i18n={i18n}
+          handleLanguageChange={handleLanguageChange}
+          onLogout={handleLogout}
         />
-        <Layout className={`site-layout ${collapsed ? 'collapsed' : ''}`}>
-          <HeaderComponent
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            isDarkMode={isDarkMode}
-            toggleTheme={toggleTheme}
-            i18n={i18n}
-            handleLanguageChange={handleLanguageChange}
-            token={token}
-          />
-          <Content style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: isDarkMode ? '#121212' : token.colorBgContainer,
-            borderRadius: token.borderRadiusLG,
-            transition: 'background-color 0.3s'
-          }}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/overview" element={<OverView />} />
-              <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
-              <Route path="/login" element={<LoginCard />} />
-              <Route path="/signup" element={<SignupCard />} />
-              <Route path="/forgotPassword" element={<ForgotPasswordCard />} />
-            </Routes>
-          </Content>
-        </Layout>
-      </Layout>
+      ) : (
+        <AuthLayout
+          direction={direction}
+          isDarkMode={isDarkMode}
+          onLogin={handleLogin}
+        />
+      )}
     </ConfigProvider>
   );
 };

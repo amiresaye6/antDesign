@@ -56,16 +56,16 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
       icon: <DashboardOutlined />,
       label: <Link to="/overview">{t('overview')}</Link>,
     },
-    {
-      key: '/login',
-      icon: <LoginOutlined />,
-      label: <Link to="/login">{t('login')}</Link>,
-    },
-    {
-      key: '/signup',
-      icon: <UserAddOutlined />,
-      label: <Link to="/signup">{t('signup')}</Link>,
-    },
+    // {
+    //   key: '/login',
+    //   icon: <LoginOutlined />,
+    //   label: <Link to="/login">{t('login')}</Link>,
+    // },
+    // {
+    //   key: '/signup',
+    //   icon: <UserAddOutlined />,
+    //   label: <Link to="/signup">{t('signup')}</Link>,
+    // },
   ];
 
   return (
@@ -112,7 +112,8 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
             fontSize: collapsed ? 16 : 20,
           }}
         >
-          {collapsed ? 'OF' : 'OmniFlow'}
+          OmniFlow
+          {/* {collapsed ? 'OF' : 'OmniFlow'} */}
         </Typography.Title>
       </div>
       <Menu

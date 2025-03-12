@@ -1,12 +1,13 @@
 // HeaderComponent.js
 import React from 'react';
-import { Button, Space, Switch } from 'antd';
+import { Button, Modal, Space, Switch } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SunOutlined,
   MoonOutlined,
-  GlobalOutlined
+  GlobalOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 
 const HeaderComponent = ({
@@ -18,6 +19,19 @@ const HeaderComponent = ({
   handleLanguageChange,
   token
 }) => {
+  const handleLogOut = () => {
+    Modal.confirm({
+      title: 'Confirm Logout',
+      content: 'Are you sure you want to log out?',
+      okText: 'Yes',
+      cancelText: 'No',
+      onOk: () => {
+        localStorage.removeItem('authToken');
+        window.location.href = '/login';
+      }
+    });
+  };
+
   return (
     <header style={{
       padding: '0 16px',
@@ -60,6 +74,13 @@ const HeaderComponent = ({
             onClick={() => handleLanguageChange('ar')}
           >
             AR
+          </Button>
+          <Button
+            type="default"
+            size="small"
+            onClick={handleLogOut}
+          >
+            <LogoutOutlined />
           </Button>
         </Space>
       </Space>
