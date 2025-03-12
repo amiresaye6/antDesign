@@ -5,8 +5,8 @@ import { Layout, theme } from 'antd';
 import Navigation from '../components/Navigation';
 import HeaderComponent from '../components/Header';
 import Home from '../components/Home';
-import OverView from '../components/OverView';
-import ChannelsDashboard from '../components/ChannelsDashboard';
+import OverView from '../components/Dashboards/OverView';
+import ChannelsDashboard from '../components/Dashboards/ChannelsDashboard';
 
 const { Content } = Layout;
 

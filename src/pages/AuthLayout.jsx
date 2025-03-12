@@ -2,9 +2,9 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout, theme } from 'antd';
-import SignupCard from '../components/SignupCard';
-import ForgotPasswordCard from '../components/ForgotPasswordCard';
-import LoginCard from '../components/loginCard';
+import SignupCard from '../components/Auth/SignupCard';
+import ForgotPasswordCard from '../components/Auth/ForgotPasswordCard';
+import LoginCard from '../components/Auth/loginCard';
 
 const { Content } = Layout;
 
