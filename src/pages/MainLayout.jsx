@@ -7,6 +7,7 @@ import HeaderComponent from '../components/Header';
 import Home from '../components/Home';
 import OverView from '../components/Dashboards/OverView';
 import ChannelsDashboard from '../components/Dashboards/ChannelsDashboard';
+import AddWebsite from '../components/AddWebsite';
 
 const { Content } = Layout;
 
@@ -54,6 +55,7 @@ const MainLayout = ({
             <Route path="/" element={<Home />} />
             <Route path="/overview" element={<OverView />} />
             <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
+            <Route path="/add-website" element={<AddWebsite />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Content>

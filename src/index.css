@@ -175,3 +175,41 @@ body[data-theme='light'] {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
+
+.website-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.website-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.add-website-btn:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.ant-tag {
+  transition: all 0.3s;
+}
+
+.ant-tag:hover {
+  opacity: 0.85;
+}
+
+/* Ensure proper contrast in dark mode */
+body[data-theme='dark'] .website-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme='dark'] .website-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+body[data-theme='dark'] .ant-tag {
+  background-color: rgba(255, 255, 255, 0.08);
+}
