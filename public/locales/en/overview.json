@@ -1,0 +1,50 @@
+{
+    "dashboardOverview": "Dashboard Overview",
+    "welcomeMessage": "Welcome to the OmniFlow Communication Dashboard. Here's your system overview as of",
+    "applyFilter": "Apply Filter",
+    "totalUsers": "Total Users",
+    "activeUsers": "Active Users",
+    "totalMessages": "Total Messages",
+    "newConversations": "New Conversations",
+    "messageVolumeTrend": "Message Volume Trend",
+    "channelBreakdown": "Channel Breakdown",
+    "recentActivities": "Recent Activities",
+    "viewAll": "View All",
+    "activityActions": {
+        "repliedToCustomerInquiry": "Replied to a customer inquiry",
+        "createdNewUserAccount": "Created a new user account",
+        "resolvedCustomerComplaint": "Resolved customer complaint",
+        "updatedCampaignSettings": "Updated campaign settings",
+        "generatedMonthlyReport": "Generated monthly report"
+    },
+    "pendingTasks": "Pending Tasks",
+    "taskTitles": {
+        "respondToCustomerComplaints": "Respond to customer complaints",
+        "updateSocialMediaContent": "Update social media content calendar",
+        "reviewChannelMetrics": "Review new channel metrics"
+    },
+    "priorities": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+    },
+    "statuses": {
+        "inProgress": "In Progress",
+        "pending": "Pending",
+        "notStarted": "Not Started"
+    },
+    "deadlines": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "due": "Due:"
+    },
+    "start": "Start",
+    "assign": "Assign",
+    "responseMetrics": "Response Metrics",
+    "responseRate": "Response Rate",
+    "averageResponseTime": "Average Response Time",
+    "customerSatisfaction": "Customer Satisfaction",
+    "responseTimeTarget": "Target: 4 hours",
+    "endDate": "End Date",
+    "startDate": "Start Date"
+}

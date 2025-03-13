@@ -30,10 +30,12 @@ import {
   LinkOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 
 const { Title, Text } = Typography;
 
 const Home = () => {
+  const { t } = useTranslation('home'); // Use 'Home' namespace for Home.json
   const navigate = useNavigate();
   const [websites, setWebsites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,10 +51,21 @@ const Home = () => {
 
       const mockWebsites = [
         {
+          id: 0,
+          displayName: 'Naqla Sehia',
+          websiteUrl: 'https://naqlasehia.com',
+          icon: '/01naqla-sehia.webp',
+          channels: [
+            { type: 'facebook', username: 'naqlasehiaofficial', profileUrl: 'https://facebook.com/naqlasehiaofficial' },
+            { type: 'instagram', username: 'naqlasehia', profileUrl: 'https://instagram.com/naqlasehia' }
+          ],
+          status: 'active'
+        },
+        {
           id: 1,
           displayName: 'Medipix',
           websiteUrl: 'https://medipix.com',
-          icon: 'https://media.istockphoto.com/id/1696167872/photo/aerial-view-of-forest-at-sunset-on-the-background-of-mountains-in-dolomites.jpg?s=612x612&w=0&k=20&c=TOMStt8moZZeljF3phyCioQXwYFrZBhY5-dsx-nMjDg=',
+          icon: '/02medipix.webp',
           channels: [
             { type: 'facebook', username: 'medipixofficial', profileUrl: 'https://facebook.com/medipixofficial' },
             { type: 'instagram', username: 'medipix', profileUrl: 'https://instagram.com/medipix' }
@@ -63,7 +76,7 @@ const Home = () => {
           id: 2,
           displayName: 'Ivita',
           websiteUrl: 'https://ivita.org',
-          icon: 'https://media.istockphoto.com/id/1696167872/photo/aerial-view-of-forest-at-sunset-on-the-background-of-mountains-in-dolomites.jpg?s=612x612&w=0&k=20&c=TOMStt8moZZeljF3phyCioQXwYFrZBhY5-dsx-nMjDg=',
+          icon: '/03-ivita.webp',
           channels: [
             { type: 'twitter', username: 'ivita_official', profileUrl: 'https://twitter.com/ivita_official' },
             { type: 'youtube', username: 'IvitaChannel', profileUrl: 'https://youtube.com/IvitaChannel' }
@@ -74,7 +87,7 @@ const Home = () => {
           id: 3,
           displayName: '3A Lab',
           websiteUrl: 'https://3alab.tech',
-          icon: 'https://media.istockphoto.com/id/1696167872/photo/aerial-view-of-forest-at-sunset-on-the-background-of-mountains-in-dolomites.jpg?s=612x612&w=0&k=20&c=TOMStt8moZZeljF3phyCioQXwYFrZBhY5-dsx-nMjDg=',
+          icon: '/06-3a-lab.webp',
           channels: [
             { type: 'facebook', username: '3alabofficial', profileUrl: 'https://facebook.com/3alabofficial' },
             { type: 'instagram', username: '3alab', profileUrl: 'https://instagram.com/3alab' },
@@ -84,11 +97,21 @@ const Home = () => {
         },
         {
           id: 4,
-          displayName: 'OmniFlow',
-          websiteUrl: 'https://omniflow.io',
-          icon: 'https://media.istockphoto.com/id/1696167872/photo/aerial-view-of-forest-at-sunset-on-the-background-of-mountains-in-dolomites.jpg?s=612x612&w=0&k=20&c=TOMStt8moZZeljF3phyCioQXwYFrZBhY5-dsx-nMjDg=',
+          displayName: 'AM Care',
+          websiteUrl: 'https://amcare.io',
+          icon: '/03-amcare-group.webp',
           channels: [
-            { type: 'youtube', username: 'OmniFlowOfficial', profileUrl: 'https://youtube.com/OmniFlowOfficial' }
+            { type: 'youtube', username: 'am_care', profileUrl: 'https://youtube.com/amcareoficial' }
+          ],
+          status: 'active'
+        },
+        {
+          id: 5,
+          displayName: 'Dr Vitamin',
+          websiteUrl: 'https://drvitamin.io',
+          icon: '/04-dr-vitamin.webp',
+          channels: [
+            { type: 'youtube', username: 'dr_vitamin_m', profileUrl: 'https://youtube.com/drvitaminoficial' }
           ],
           status: 'active'
         }
@@ -124,27 +147,27 @@ const Home = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'active':
-        return <Badge status="success" text="Active" />;
+        return <Badge status="success" text={t('status.active')} />;
       case 'maintenance':
-        return <Badge status="warning" text="Maintenance" />;
+        return <Badge status="warning" text={t('status.maintenance')} />;
       case 'offline':
-        return <Badge status="error" text="Offline" />;
+        return <Badge status="error" text={t('status.offline')} />;
       default:
-        return <Badge status="default" text="Unknown" />;
+        return <Badge status="default" text={t('status.unknown')} />;
     }
   };
 
   const getWebsiteDropdownMenu = (website) => (
     <Menu>
       <Menu.Item key="1" icon={<EditOutlined />} onClick={() => navigate(`/edit-website/${website.id}`)}>
-        Edit
+        {t('dropdown.edit')}
       </Menu.Item>
       <Menu.Item key="2" icon={<SettingOutlined />} onClick={() => navigate(`/website-settings/${website.id}`)}>
-        Settings
+        {t('dropdown.settings')}
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="3" danger icon={<DeleteOutlined />} onClick={() => handleDeleteWebsite(website.id)}>
-        Delete
+        {t('dropdown.delete')}
       </Menu.Item>
     </Menu>
   );
@@ -184,7 +207,7 @@ const Home = () => {
         borderBottom: '1px solid var(--border-color)',
         paddingBottom: '16px'
       }}>
-        <Title level={2} style={{ margin: 0, color: 'var(--text-color)' }}>My Websites</Title>
+        <Title level={2} style={{ margin: 0, color: 'var(--text-color)' }}>{t('myWebsites')}</Title>
         <Button
           type="primary"
           icon={<PlusOutlined />}
@@ -200,7 +223,7 @@ const Home = () => {
           }}
           className="add-website-btn"
         >
-          Add Website
+          {t('addWebsite')}
         </Button>
       </div>
 
@@ -210,7 +233,7 @@ const Home = () => {
         ) : websites.length === 0 ? (
           <Col span={24}>
             <Empty
-              description={<span style={{ color: 'var(--text-color)' }}>No websites added yet</span>}
+              description={<span style={{ color: 'var(--text-color)' }}>{t('noWebsitesAddedYet')}</span>}
               image={Empty.PRESENTED_IMAGE_SIMPLE}
             >
               <Button
@@ -223,7 +246,7 @@ const Home = () => {
                   transition: 'all 0.3s'
                 }}
               >
-                Add Your First Website
+                {t('addYourFirstWebsite')}
               </Button>
             </Empty>
           </Col>
@@ -309,7 +332,7 @@ const Home = () => {
 
                   <div style={{ marginBottom: '16px' }}>
                     <Text style={{ fontSize: '13px', display: 'block', marginBottom: '8px', color: 'var(--text-color)', opacity: 0.8 }}>
-                      Connected channels:
+                      {t('connectedChannels')}
                     </Text>
                     <Space size={[0, 8]} wrap>
                       {website.channels.map((channel, index) => (
@@ -350,7 +373,7 @@ const Home = () => {
                         navigate(`/website-dashboard/${website.id}`);
                       }}
                     >
-                      Dashboard
+                      {t('dashboard')}
                     </Button>
                     <Button
                       type="text"
@@ -362,7 +385,7 @@ const Home = () => {
                         window.open(website.websiteUrl, '_blank');
                       }}
                     >
-                      Visit
+                      {t('visit')}
                     </Button>
                   </div>
                   <Dropdown
@@ -383,8 +406,6 @@ const Home = () => {
           ))
         )}
       </Row>
-
-
     </>
   );
 };

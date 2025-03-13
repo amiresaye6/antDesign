@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Row,
@@ -12,14 +12,12 @@ import {
   Avatar,
   DatePicker,
   Button,
-  Divider,
   Badge
 } from 'antd';
 import {
   UserOutlined,
   MessageOutlined,
   RiseOutlined,
-  FallOutlined,
   ClockCircleOutlined,
   CalendarOutlined,
   BellOutlined,
@@ -30,9 +28,6 @@ import {
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { Line } from '@ant-design/charts';
-
-const { Title, Text, Paragraph } = Typography;
-const { RangePicker } = DatePicker;
 
 // Custom icons for different channels
 import {
@@ -48,6 +43,9 @@ const TikTokIcon = () => (
     <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z" />
   </svg>
 );
+
+const { Title, Text, Paragraph } = Typography;
+const { RangePicker } = DatePicker;
 
 const getChannelIcon = (channel) => {
   const iconStyle = { fontSize: '18px' };
@@ -83,7 +81,8 @@ const getStatusIcon = (status) => {
 };
 
 const OverView = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('overview'); // Updated to 'OverView' namespace
+  // eslint-disable-next-line no-unused-vars
   const [range, setRange] = useState([null, null]);
 
   // Sample data for metrics
@@ -92,7 +91,7 @@ const OverView = () => {
     activeUsers: 5621,
     totalMessages: 45923,
     responseRate: 94.7,
-    averageResponseTime: '2.3 hours',
+    averageResponseTime: '2.3 hours', // Could be translated if dynamic
     newConversations: 127,
     userGrowth: 8.4,
     messageGrowth: 12.6
@@ -112,35 +111,35 @@ const OverView = () => {
     {
       id: 1,
       user: 'Sarah Johnson',
-      action: 'Replied to a customer inquiry',
+      action: t('activityActions.repliedToCustomerInquiry'),
       channel: 'WhatsApp',
-      timestamp: '10 minutes ago'
+      timestamp: '10 minutes ago' // Could be translated if dynamic
     },
     {
       id: 2,
       user: 'Michael Chen',
-      action: 'Created a new user account',
+      action: t('activityActions.createdNewUserAccount'),
       channel: 'System',
       timestamp: '43 minutes ago'
     },
     {
       id: 3,
       user: 'Amanda Garcia',
-      action: 'Resolved customer complaint',
+      action: t('activityActions.resolvedCustomerComplaint'),
       channel: 'Facebook',
       timestamp: '1 hour ago'
     },
     {
       id: 4,
       user: 'Robert Kim',
-      action: 'Updated campaign settings',
+      action: t('activityActions.updatedCampaignSettings'),
       channel: 'Instagram',
       timestamp: '2 hours ago'
     },
     {
       id: 5,
       user: 'Jessica Taylor',
-      action: 'Generated monthly report',
+      action: t('activityActions.generatedMonthlyReport'),
       channel: 'System',
       timestamp: '3 hours ago'
     }
@@ -150,24 +149,24 @@ const OverView = () => {
   const pendingTasks = [
     {
       id: 1,
-      title: 'Respond to customer complaints',
-      priority: 'High',
-      deadline: 'Today',
-      status: 'In Progress'
+      title: t('taskTitles.respondToCustomerComplaints'),
+      priority: t('priorities.high'),
+      deadline: t('deadlines.today'),
+      status: t('statuses.inProgress')
     },
     {
       id: 2,
-      title: 'Update social media content calendar',
-      priority: 'Medium',
-      deadline: 'Tomorrow',
-      status: 'Pending'
+      title: t('taskTitles.updateSocialMediaContent'),
+      priority: t('priorities.medium'),
+      deadline: t('deadlines.tomorrow'),
+      status: t('statuses.pending')
     },
     {
       id: 3,
-      title: 'Review new channel metrics',
-      priority: 'Low',
-      deadline: 'Mar 12, 2025',
-      status: 'Not Started'
+      title: t('taskTitles.reviewChannelMetrics'),
+      priority: t('priorities.low'),
+      deadline: 'Mar 12, 2025', // Static date, not translated
+      status: t('statuses.notStarted')
     }
   ];
 
@@ -190,20 +189,20 @@ const OverView = () => {
     yField: 'messages',
     point: {
       size: 5,
-      shape: 'diamond',
+      shape: 'circle',
     },
-    color: '#1890ff',
+    color: '#646cff',
     smooth: true,
   };
 
   // Priority color mapping
   const getPriorityColor = (priority) => {
     switch (priority.toLowerCase()) {
-      case 'high':
+      case t('priorities.high').toLowerCase():
         return 'red';
-      case 'medium':
+      case t('priorities.medium').toLowerCase():
         return 'orange';
-      case 'low':
+      case t('priorities.low').toLowerCase():
         return 'blue';
       default:
         return 'default';
@@ -214,9 +213,9 @@ const OverView = () => {
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Row gutter={[16, 16]} align="middle">
         <Col xs={24} md={16}>
-          <Title level={2}>Dashboard Overview</Title>
+          <Title level={2}>{t('dashboardOverview')}</Title>
           <Paragraph>
-            Welcome to the OmniFlow Communication Dashboard. Here's your system overview as of{' '}
+            {t('welcomeMessage')}{' '}
             <Text strong>{new Date().toLocaleDateString('en-US', {
               weekday: 'long',
               year: 'numeric',
@@ -230,9 +229,10 @@ const OverView = () => {
             <RangePicker
               onChange={(values) => setRange(values)}
               allowClear
+              placeholder={[t('startDate'), t('endDate')]}
             />
             <Button type="primary">
-              Apply Filter
+              {t('applyFilter')}
             </Button>
           </Space>
         </Col>
@@ -243,7 +243,7 @@ const OverView = () => {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Total Users"
+              title={t('totalUsers')}
               value={metrics.totalUsers}
               prefix={<UserOutlined />}
               suffix={
@@ -257,7 +257,7 @@ const OverView = () => {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Active Users"
+              title={t('activeUsers')}
               value={metrics.activeUsers}
               prefix={<TeamOutlined />}
               suffix={
@@ -271,7 +271,7 @@ const OverView = () => {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Total Messages"
+              title={t('totalMessages')}
               value={metrics.totalMessages}
               prefix={<MessageOutlined />}
               suffix={
@@ -285,7 +285,7 @@ const OverView = () => {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="New Conversations"
+              title={t('newConversations')}
               value={metrics.newConversations}
               prefix={<BellOutlined />}
               valueStyle={{ color: '#1890ff' }}
@@ -297,12 +297,12 @@ const OverView = () => {
       {/* Charts and tables */}
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={16}>
-          <Card title="Message Volume Trend">
-            <Line {...config} height={250} />
+          <Card title={t('messageVolumeTrend')}>
+            <Line {...config} height={350} style={{color: "white"}} />
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="Channel Breakdown" style={{ height: '100%' }}>
+          <Card title={t('channelBreakdown')} style={{ height: '100%' }}>
             <List
               dataSource={channelData}
               renderItem={item => (
@@ -330,7 +330,7 @@ const OverView = () => {
       {/* Recent activities and tasks */}
       <Row gutter={[16, 16]}>
         <Col xs={24} md={12}>
-          <Card title="Recent Activities" extra={<a href="#">View All</a>}>
+          <Card title={t('recentActivities')} extra={<a href="#">{t('viewAll')}</a>}>
             <List
               dataSource={recentActivities}
               renderItem={item => (
@@ -361,14 +361,14 @@ const OverView = () => {
           </Card>
         </Col>
         <Col xs={24} md={12}>
-          <Card title="Pending Tasks" extra={<a href="#">View All</a>}>
+          <Card title={t('pendingTasks')} extra={<a href="#">{t('viewAll')}</a>}>
             <List
               dataSource={pendingTasks}
               renderItem={item => (
                 <List.Item
                   actions={[
-                    <Button type="link" size="small">Start</Button>,
-                    <Button type="link" size="small">Assign</Button>
+                    <Button type="link" size="small">{t('start')}</Button>,
+                    <Button type="link" size="small">{t('assign')}</Button>
                   ]}
                 >
                   <List.Item.Meta
@@ -393,8 +393,8 @@ const OverView = () => {
                     description={
                       <Space>
                         <CalendarOutlined />
-                        <Text type={item.deadline === 'Today' ? 'danger' : 'secondary'}>
-                          Due: {item.deadline}
+                        <Text type={item.deadline === t('deadlines.today') ? 'danger' : 'secondary'}>
+                          {t('deadlines.due')} {item.deadline}
                         </Text>
                       </Space>
                     }
@@ -409,11 +409,11 @@ const OverView = () => {
       {/* Response metrics */}
       <Row gutter={[16, 16]}>
         <Col xs={24}>
-          <Card title="Response Metrics">
+          <Card title={t('responseMetrics')}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={8}>
                 <Statistic
-                  title="Response Rate"
+                  title={t('responseRate')}
                   value={metrics.responseRate}
                   suffix="%"
                   valueStyle={{ color: '#3f8600' }}
@@ -429,20 +429,20 @@ const OverView = () => {
               </Col>
               <Col xs={24} sm={8}>
                 <Statistic
-                  title="Average Response Time"
+                  title={t('averageResponseTime')}
                   value={metrics.averageResponseTime}
                   valueStyle={{ color: '#1890ff' }}
                 />
                 <div style={{ marginTop: 16 }}>
                   <Text>
                     <ClockCircleOutlined style={{ marginRight: 8 }} />
-                    Target: 4 hours
+                    {t('responseTimeTarget')}
                   </Text>
                 </div>
               </Col>
               <Col xs={24} sm={8}>
                 <Statistic
-                  title="Customer Satisfaction"
+                  title={t('customerSatisfaction')}
                   value={92.3}
                   suffix="%"
                   valueStyle={{ color: '#3f8600' }}

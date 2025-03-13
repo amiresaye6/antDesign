@@ -1,0 +1,20 @@
+{
+    "myWebsites": "My Websites",
+    "addWebsite": "Add Website",
+    "noWebsitesAddedYet": "No websites added yet",
+    "addYourFirstWebsite": "Add Your First Website",
+    "connectedChannels": "Connected channels:",
+    "status": {
+        "active": "Active",
+        "maintenance": "Maintenance",
+        "offline": "Offline",
+        "unknown": "Unknown"
+    },
+    "dashboard": "Dashboard",
+    "visit": "Visit",
+    "dropdown": {
+        "edit": "Edit",
+        "settings": "Settings",
+        "delete": "Delete"
+    }
+}

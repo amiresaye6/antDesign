@@ -21,28 +21,34 @@ import {
   TwitterOutlined,
   InstagramOutlined,
   YoutubeOutlined,
+  CameraOutlined,
+  CommentOutlined,
+  MessageOutlined,
+  PlayCircleOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const AddWebsite = () => {
+  const { t } = useTranslation('addWebsite'); // Use 'AddWebsite' namespace
   const [form] = Form.useForm();
   const [channels, setChannels] = useState([]);
   const navigate = useNavigate();
 
   // Channel types with their respective icons
-const channelTypes = [
-    { value: 'facebook', label: 'Facebook', icon: <FacebookOutlined /> },
-    { value: 'instagram', label: 'Instagram', icon: <InstagramOutlined /> },
-    { value: 'twitter', label: 'X (Twitter)', icon: <TwitterOutlined /> },
-    { value: 'youtube', label: 'YouTube', icon: <YoutubeOutlined /> },
-    { value: 'tiktok', label: 'TikTok', icon: <PlusOutlined /> },
-    { value: 'whatsapp', label: 'WhatsApp', icon: <PlusOutlined /> },
-    { value: 'threads', label: 'Threads', icon: <PlusOutlined /> },
-    { value: 'snapchat', label: 'Snapchat', icon: <PlusOutlined /> },
-];
+  const channelTypes = [
+    { value: 'facebook', label: t('channelTypes.facebook'), icon: <FacebookOutlined style={{ color: '#3b5998' }} /> },
+    { value: 'instagram', label: t('channelTypes.instagram'), icon: <InstagramOutlined style={{ color: '#E1306C' }} /> },
+    { value: 'twitter', label: t('channelTypes.twitter'), icon: <TwitterOutlined style={{ color: '#1DA1F2' }} /> },
+    { value: 'youtube', label: t('channelTypes.youtube'), icon: <YoutubeOutlined style={{ color: '#FF0000' }} /> },
+    { value: 'tiktok', label: t('channelTypes.tiktok'), icon: <PlayCircleOutlined style={{ color: '#000000' }} /> },
+    { value: 'whatsapp', label: t('channelTypes.whatsapp'), icon: <MessageOutlined style={{ color: '#25D366' }} /> },
+    { value: 'threads', label: t('channelTypes.threads'), icon: <CommentOutlined style={{ color: '#000000' }} /> },
+    { value: 'snapchat', label: t('channelTypes.snapchat'), icon: <CameraOutlined style={{ color: '#FFFC00' }} /> },
+  ];
 
   const addChannel = () => {
     setChannels([...channels, { id: Date.now(), type: undefined, username: '', apiToken: '', profileUrl: '' }]);
@@ -53,23 +59,21 @@ const channelTypes = [
   };
 
   const updateChannel = (id, field, value) => {
-    setChannels(channels.map(channel => 
+    setChannels(channels.map(channel =>
       channel.id === id ? { ...channel, [field]: value } : channel
     ));
   };
 
   const handleSubmit = (values) => {
-    // Combine form values with channels
     const websiteData = {
       ...values,
       // eslint-disable-next-line no-unused-vars
-      channels: channels.map(({ id, ...rest }) => rest) // Remove the temporary id
+      channels: channels.map(({ id, ...rest }) => rest), // Remove the temporary id
     };
-    
+
     console.log('Submitting website data:', websiteData);
-    message.success('Website added successfully!');
-    
-    // Navigate back to home page or the websites list
+    message.success(t('websiteAddedSuccessfully'));
+
     navigate('/dashboard');
   };
 
@@ -81,12 +85,12 @@ const channelTypes = [
   };
 
   return (
-    <Card title="Add New Website" style={{ width: '100%' }}>
+    <Card title={t('addNewWebsite')} style={{ width: '100%' }}>
       <Form
         form={form}
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={{ 
+        initialValues={{
           displayName: '',
           websiteUrl: '',
         }}
@@ -95,47 +99,47 @@ const channelTypes = [
           <Col xs={24} md={12}>
             <Form.Item
               name="displayName"
-              label="Display Name"
-              rules={[{ required: true, message: 'Please enter the display name' }]}
+              label={t('displayName')}
+              rules={[{ required: true, message: t('pleaseEnterDisplayName') }]}
             >
-              <Input placeholder="Enter website name" />
+              <Input placeholder={t('enterWebsiteName')} />
             </Form.Item>
           </Col>
-          
+
           <Col xs={24} md={12}>
             <Form.Item
               name="websiteUrl"
-              label="Website URL"
+              label={t('websiteUrl')}
               rules={[
-                { required: true, message: 'Please enter the website URL' },
-                { type: 'url', message: 'Please enter a valid URL' }
+                { required: true, message: t('pleaseEnterWebsiteUrl') },
+                { type: 'url', message: t('pleaseEnterValidUrl') }
               ]}
             >
-              <Input placeholder="https://example.com" />
+              <Input placeholder={t('websiteUrlPlaceholder')} />
             </Form.Item>
           </Col>
         </Row>
 
         <Form.Item
           name="icon"
-          label="Website Icon"
+          label={t('websiteIcon')}
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
           <Upload name="icon" listType="picture" maxCount={1} beforeUpload={() => false}>
-            <Button icon={<UploadOutlined />}>Upload Icon</Button>
+            <Button icon={<UploadOutlined />}>{t('uploadIcon')}</Button>
           </Upload>
         </Form.Item>
 
-        <Divider orientation="left">Social Media Channels</Divider>
-        
+        <Divider orientation="left">{t('socialMediaChannels')}</Divider>
+
         {channels.map((channel, index) => (
           <div key={channel.id}>
             <Row gutter={16} align="middle">
               <Col xs={24} md={6}>
-                <Form.Item label={index === 0 ? "Channel Type" : ""}>
+                <Form.Item label={index === 0 ? t('channelType') : ''}>
                   <Select
-                    placeholder="Select channel"
+                    placeholder={t('selectChannel')}
                     value={channel.type}
                     onChange={(value) => updateChannel(channel.id, 'type', value)}
                     style={{ width: '100%' }}
@@ -151,39 +155,39 @@ const channelTypes = [
                   </Select>
                 </Form.Item>
               </Col>
-              
+
               <Col xs={24} md={6}>
-                <Form.Item label={index === 0 ? "Username" : ""}>
+                <Form.Item label={index === 0 ? t('username') : ''}>
                   <Input
-                    placeholder="Username"
+                    placeholder={t('usernamePlaceholder')}
                     value={channel.username}
                     onChange={(e) => updateChannel(channel.id, 'username', e.target.value)}
                   />
                 </Form.Item>
               </Col>
-              
+
               <Col xs={24} md={6}>
-                <Form.Item label={index === 0 ? "Profile URL" : ""}>
+                <Form.Item label={index === 0 ? t('profileUrl') : ''}>
                   <Input
-                    placeholder="Profile URL"
+                    placeholder={t('profileUrlPlaceholder')}
                     value={channel.profileUrl}
                     onChange={(e) => updateChannel(channel.id, 'profileUrl', e.target.value)}
                   />
                 </Form.Item>
               </Col>
-              
+
               <Col xs={24} md={5}>
-                <Form.Item label={index === 0 ? "API Token" : ""}>
+                <Form.Item label={index === 0 ? t('apiToken') : ''}>
                   <Input.Password
-                    placeholder="API Token"
+                    placeholder={t('apiTokenPlaceholder')}
                     value={channel.apiToken}
                     onChange={(e) => updateChannel(channel.id, 'apiToken', e.target.value)}
                   />
                 </Form.Item>
               </Col>
-              
+
               <Col xs={24} md={1}>
-                <Form.Item label={index === 0 ? " " : ""}>
+                <Form.Item label={index === 0 ? ' ' : ''}>
                   <Button
                     danger
                     icon={<DeleteOutlined />}
@@ -203,17 +207,17 @@ const channelTypes = [
             icon={<PlusOutlined />}
             style={{ marginBottom: 16 }}
           >
-            Add Channel
+            {t('addChannel')}
           </Button>
         </Form.Item>
 
         <Form.Item>
           <Space>
             <Button type="primary" htmlType="submit">
-              Save Website
+              {t('saveWebsite')}
             </Button>
             <Button onClick={() => navigate('/dashboard')}>
-              Cancel
+              {t('cancel')}
             </Button>
           </Space>
         </Form.Item>

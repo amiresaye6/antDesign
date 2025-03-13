@@ -1,0 +1,20 @@
+{
+    "myWebsites": "مواقعي الإلكترونية",
+    "addWebsite": "إضافة موقع",
+    "noWebsitesAddedYet": "لم يتم إضافة مواقع بعد",
+    "addYourFirstWebsite": "أضف موقعك الأول",
+    "connectedChannels": "القنوات المتصلة:",
+    "status": {
+        "active": "نشط",
+        "maintenance": "تحت الصيانة",
+        "offline": "غير متصل",
+        "unknown": "غير معروف"
+    },
+    "dashboard": "لوحة التحكم",
+    "visit": "زيارة",
+    "dropdown": {
+        "edit": "تعديل",
+        "settings": "الإعدادات",
+        "delete": "حذف"
+    }
+}

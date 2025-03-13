@@ -1,0 +1,50 @@
+{
+    "dashboardOverview": "نظرة عامة على لوحة التحكم",
+    "welcomeMessage": "مرحبًا بك في لوحة التحكم للاتصالات OmniFlow. إليك نظرة عامة على نظامك اعتبارًا من",
+    "applyFilter": "تطبيق الفلتر",
+    "totalUsers": "إجمالي المستخدمين",
+    "activeUsers": "المستخدمون النشطون",
+    "totalMessages": "إجمالي الرسائل",
+    "newConversations": "المحادثات الجديدة",
+    "messageVolumeTrend": "اتجاه حجم الرسائل",
+    "channelBreakdown": "توزيع القنوات",
+    "recentActivities": "الأنشطة الأخيرة",
+    "viewAll": "عرض الكل",
+    "activityActions": {
+        "repliedToCustomerInquiry": "رد على استفسار عميل",
+        "createdNewUserAccount": "أنشأ حساب مستخدم جديد",
+        "resolvedCustomerComplaint": "حل شكوى عميل",
+        "updatedCampaignSettings": "قام بتحديث إعدادات الحملة",
+        "generatedMonthlyReport": "أنشأ تقريرًا شهريًا"
+    },
+    "pendingTasks": "المهام المعلقة",
+    "taskTitles": {
+        "respondToCustomerComplaints": "الرد على شكاوى العملاء",
+        "updateSocialMediaContent": "تحديث تقويم محتوى وسائل التواصل الاجتماعي",
+        "reviewChannelMetrics": "مراجعة مقاييس القناة الجديدة"
+    },
+    "priorities": {
+        "high": "عالي",
+        "medium": "متوسط",
+        "low": "منخفض"
+    },
+    "statuses": {
+        "inProgress": "قيد التنفيذ",
+        "pending": "معلق",
+        "notStarted": "لم يبدأ"
+    },
+    "deadlines": {
+        "today": "اليوم",
+        "tomorrow": "غدًا",
+        "due": "مستحق:"
+    },
+    "start": "ابدأ",
+    "assign": "تعيين",
+    "responseMetrics": "مقاييس الاستجابة",
+    "responseRate": "معدل الاستجابة",
+    "averageResponseTime": "متوسط وقت الاستجابة",
+    "customerSatisfaction": "رضا العملاء",
+    "responseTimeTarget": "الهدف: 4 ساعات",
+    "endDate": "تاريخ الانتهاء",
+    "startDate": "تاريخ البدء"
+}
