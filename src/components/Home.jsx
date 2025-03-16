@@ -60,7 +60,7 @@ const Home = () => {
 
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       // In a real app with API, you'd make the call here and then dispatch success with the data
       // Since we're using mock data, we should dispatch the success action with the mock data we already have
       // This ensures the loading state is properly reset
