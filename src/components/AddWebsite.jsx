@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Card,
   Form,
@@ -27,16 +28,18 @@ import {
   PlayCircleOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { useTranslation } from 'react-i18next';
+import { addWebsite } from '../store/slices/websitesSlice';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const AddWebsite = () => {
-  const { t } = useTranslation('addWebsite'); // Use 'AddWebsite' namespace
+  const { t } = useTranslation('addWebsite');
   const [form] = Form.useForm();
   const [channels, setChannels] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Channel types with their respective icons
   const channelTypes = [
@@ -65,16 +68,33 @@ const AddWebsite = () => {
   };
 
   const handleSubmit = (values) => {
-    const websiteData = {
-      ...values,
+    // Prepare channels data by filtering out incomplete entries and removing temporary ids
+    const validChannels = channels
+      .filter(channel => channel.type && channel.username)
       // eslint-disable-next-line no-unused-vars
-      channels: channels.map(({ id, ...rest }) => rest), // Remove the temporary id
+      .map(({ id, ...channelData }) => channelData);
+
+    // Process icon file upload
+    let iconPath = '/default-website-icon.webp'; // Default icon path
+    if (values.icon && values.icon.length > 0) {
+      // In a real app, you would upload the file to your server/cloud storage
+      // and get back a URL, for now we'll just use the file name
+      iconPath = `/${values.icon[0].name}`;
+    }
+
+    // Prepare website data
+    const websiteData = {
+      displayName: values.displayName,
+      websiteUrl: values.websiteUrl,
+      icon: iconPath,
+      channels: validChannels,
     };
 
-    console.log('Submitting website data:', websiteData);
+    // Dispatch action to add website to Redux store
+    dispatch(addWebsite(websiteData));
+    
     message.success(t('websiteAddedSuccessfully'));
-
-    navigate('/dashboard');
+    navigate('/');
   };
 
   const normFile = (e) => {
@@ -216,7 +236,7 @@ const AddWebsite = () => {
             <Button type="primary" htmlType="submit">
               {t('saveWebsite')}
             </Button>
-            <Button onClick={() => navigate('/dashboard')}>
+            <Button onClick={() => navigate('/')}>
               {t('cancel')}
             </Button>
           </Space>
