@@ -23,5 +23,22 @@
     "read": "Read",
     "write": "Write",
     "manage": "Manage",
-    "noRoles": "No roles found"
+    "noRoles": "No roles found",
+    "addNewUser": "Add New User",
+    "nameRequired": "Please enter the name",
+    "enterName": "Enter name",
+    "emailRequired": "Please enter the email",
+    "invalidEmail": "Please enter a valid email",
+    "enterEmail": "Enter email",
+    "passwordRequired": "Please enter the password",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "enterPassword": "Enter password",
+    "roleRequired": "Please select a role",
+    "selectRole": "Select role",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "userAddedSuccess": "User added successfully",
+    "roleAddedSuccess": "Role added successfully",
+    "roleUpdatedSuccess": "Role updated successfully",
+    "roleDeletedSuccess": "Role deleted successfully"
 }

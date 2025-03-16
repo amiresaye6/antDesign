@@ -1,8 +1,8 @@
-// components/UserManagement/UsersList.js
 import React, { useState } from 'react';
-import { Table, Input, Select, Button, Space } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Table, Input, Select, Button, Space, message } from 'antd';
+import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import AddUserModal from './AddUserModal';
 
 const { Option } = Select;
 
@@ -10,19 +10,42 @@ const UsersList = () => {
   const { t } = useTranslation('usersPage');
   const [searchText, setSearchText] = useState('');
   const [filterRole, setFilterRole] = useState('all');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // Mock data - replace with your actual data source
-  const data = [
+  // Use state for the data to make it reactive
+  const [userData, setUserData] = useState([
     { key: '1', name: 'John Doe', email: 'john@example.com', role: 'admin' },
     { key: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'owner' },
     { key: '3', name: 'Bob Johnson', email: 'bob@example.com', role: 'user' },
-  ];
+    { key: '4', name: 'Alice Brown', email: 'alice@example.com', role: 'admin' },
+    { key: '5', name: 'Charlie Davis', email: 'charlie@example.com', role: 'owner' },
+    { key: '6', name: 'Eve White', email: 'eve@example.com', role: 'user' },
+  ]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleAddUser = (newUser) => {
+    setUserData([...userData, newUser]);
+  };
+
+  const handleDelete = (key) => {
+    const updatedData = userData.filter(user => user.key !== key);
+    setUserData(updatedData);
+    message.success(t('userDeleted'));
+  };
 
   const columns = [
     {
       title: t('name'),
       dataIndex: 'name',
       key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t('email'),
@@ -33,22 +56,33 @@ const UsersList = () => {
       title: t('role'),
       dataIndex: 'role',
       key: 'role',
-      render: (role) => t(role)
+      render: (role) => t(role),
+      filters: [
+        { text: t('admin'), value: 'admin' },
+        { text: t('owner'), value: 'owner' },
+        { text: t('user'), value: 'user' },
+      ],
+      onFilter: (value, record) => record.role === value,
     },
     {
       title: t('actions'),
       key: 'actions',
-      // eslint-disable-next-line no-unused-vars
       render: (_, record) => (
         <Space size="middle">
           <Button type="link">{t('edit')}</Button>
-          <Button type="link" danger>{t('delete')}</Button>
+          <Button
+            type="link"
+            danger
+            onClick={() => handleDelete(record.key)}
+          >
+            {t('delete')}
+          </Button>
         </Space>
       ),
     }
   ];
 
-  const filteredData = data.filter(user =>
+  const filteredData = userData.filter(user =>
     (filterRole === 'all' || user.role === filterRole) &&
     (user.name.toLowerCase().includes(searchText.toLowerCase()) ||
       user.email.toLowerCase().includes(searchText.toLowerCase()))
@@ -57,17 +91,18 @@ const UsersList = () => {
   return (
     <div className="users-list">
       <div className="filter-container" style={{ marginBottom: 16 }}>
-        <Space>
+        <Space wrap>
           <Input
             prefix={<SearchOutlined />}
             placeholder={t('searchUsers')}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             style={{ width: 200 }}
+            allowClear
           />
 
           <Select
-            defaultValue="all"
+            value={filterRole}
             style={{ width: 150 }}
             onChange={(value) => setFilterRole(value)}
           >
@@ -77,7 +112,11 @@ const UsersList = () => {
             <Option value="user">{t('user')}</Option>
           </Select>
 
-          <Button type="primary">
+          <Button
+            type="primary"
+            icon={<UserAddOutlined />}
+            onClick={showModal}
+          >
             {t('addUser')}
           </Button>
         </Space>
@@ -88,6 +127,14 @@ const UsersList = () => {
         dataSource={filteredData}
         pagination={{ pageSize: 10 }}
         locale={{ emptyText: t('noUsers') }}
+        rowKey="key"
+        bordered
+      />
+
+      <AddUserModal
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        onAddUser={handleAddUser}
       />
     </div>
   );

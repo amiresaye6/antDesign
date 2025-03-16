@@ -1,20 +1,17 @@
-// components/UserManagement/UserRolesPermissions.js
 import React, { useState } from 'react';
-import { Table, Button, Modal, Form, Input, Checkbox, Space } from 'antd';
+import { Table, Button, Modal, Form, Input, Checkbox, Space, message } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 const UserRolesPermissions = () => {
   const { t } = useTranslation('usersPage');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingRole, setEditingRole] = useState(null);
-  const [form] = Form.useForm();
-
-  // Mock data - replace with your actual data source linked to roles table
-  const data = [
+  const [roles, setRoles] = useState([
     { key: '1', role: 'admin', permissions: ['read', 'write', 'delete'] },
     { key: '2', role: 'owner', permissions: ['read', 'write'] },
     { key: '3', role: 'user', permissions: ['read'] },
-  ];
+  ]);
+  const [form] = Form.useForm();
 
   const allPermissions = ['read', 'write', 'delete', 'manage'];
 
@@ -23,13 +20,13 @@ const UserRolesPermissions = () => {
       title: t('role'),
       dataIndex: 'role',
       key: 'role',
-      render: (role) => t(role)
+      render: (role) => t(role),
     },
     {
       title: t('permissions'),
       dataIndex: 'permissions',
       key: 'permissions',
-      render: (permissions) => permissions.map(perm => t(perm)).join(', '),
+      render: (permissions) => permissions.map((perm) => t(perm)).join(', '),
     },
     {
       title: t('actions'),
@@ -39,7 +36,7 @@ const UserRolesPermissions = () => {
           <Button type="link" onClick={() => showEditModal(record)}>
             {t('edit')}
           </Button>
-          <Button type="link" danger>
+          <Button type="link" danger onClick={() => handleDeleteRole(record.key)}>
             {t('delete')}
           </Button>
         </Space>
@@ -63,9 +60,23 @@ const UserRolesPermissions = () => {
   };
 
   const handleOk = () => {
-    form.validateFields().then(values => {
-      console.log(editingRole ? 'Updated role:' : 'New role:', values);
-      // Add your update/create logic here
+    form.validateFields().then((values) => {
+      if (editingRole) {
+        // Update existing role
+        const updatedRoles = roles.map((role) =>
+          role.key === editingRole.key ? { ...role, ...values } : role
+        );
+        setRoles(updatedRoles);
+        message.success(t('roleUpdatedSuccess'));
+      } else {
+        // Add new role
+        const newRole = {
+          key: `role-${Date.now()}`, // Generate a unique key
+          ...values,
+        };
+        setRoles([...roles, newRole]);
+        message.success(t('roleAddedSuccess'));
+      }
       setIsModalVisible(false);
       form.resetFields();
     });
@@ -74,6 +85,12 @@ const UserRolesPermissions = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
     form.resetFields();
+  };
+
+  const handleDeleteRole = (key) => {
+    const updatedRoles = roles.filter((role) => role.key !== key);
+    setRoles(updatedRoles);
+    message.success(t('roleDeletedSuccess'));
   };
 
   return (
@@ -88,7 +105,7 @@ const UserRolesPermissions = () => {
 
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={roles}
         pagination={false}
         locale={{ emptyText: t('noRoles') }}
       />
@@ -100,11 +117,7 @@ const UserRolesPermissions = () => {
         onCancel={handleCancel}
         destroyOnClose={true}
       >
-        <Form
-          form={form}
-          layout="vertical"
-          name="roleForm"
-        >
+        <Form form={form} layout="vertical" name="roleForm">
           <Form.Item
             name="role"
             label={t('roleName')}
@@ -113,13 +126,10 @@ const UserRolesPermissions = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            name="permissions"
-            label={t('permissions')}
-          >
+          <Form.Item name="permissions" label={t('permissions')}>
             <Checkbox.Group>
               <Space direction="vertical">
-                {allPermissions.map(permission => (
+                {allPermissions.map((permission) => (
                   <Checkbox key={permission} value={permission}>
                     {t(permission)}
                   </Checkbox>
