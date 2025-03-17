@@ -1,0 +1,13 @@
+{
+    "statuses": {
+        "active": "Active",
+        "break": "On Break",
+        "meeting": "In Meeting",
+        "busy": "Busy",
+        "away": "Away"
+    },
+    "timer": {
+        "reset": "Reset Timer",
+        "timeSpent": "Time Spent"
+    }
+}

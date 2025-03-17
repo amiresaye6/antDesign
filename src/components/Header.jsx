@@ -9,6 +9,7 @@ import {
   GlobalOutlined,
   LogoutOutlined
 } from '@ant-design/icons';
+import UserStatusTimer from './UserStatusTimer';
 
 const HeaderComponent = ({
   collapsed,
@@ -49,6 +50,7 @@ const HeaderComponent = ({
         style={{ fontSize: '16px', width: 64, height: 64 }}
       />
       <Space align="center" size="middle">
+        <UserStatusTimer />
         <Space>
           <SunOutlined style={{ color: isDarkMode ? 'rgba(255,255,255,0.65)' : '#faad14' }} />
           <Switch
