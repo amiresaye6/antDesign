@@ -9,6 +9,7 @@ import OverView from '../components/Dashboards/OverView';
 import ChannelsDashboard from '../components/Dashboards/ChannelsDashboard';
 import AddWebsite from '../components/AddWebsite';
 import UserManagement from '../components/Dashboards/userManagment';
+import NotImplementedYet from '../components/NotImplementedYet';
 
 const { Content } = Layout;
 
@@ -58,6 +59,11 @@ const MainLayout = ({
             <Route path="/user-management" element={<UserManagement />} />
             <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
             <Route path="/add-website" element={<AddWebsite />} />
+            <Route path="/campaigns" element={<NotImplementedYet />} />
+            <Route path="/crm" element={<NotImplementedYet />} />
+            <Route path="/posts-dashboard" element={<NotImplementedYet />} />
+
+            {/* Catch-all route for any unmatched path */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Content>

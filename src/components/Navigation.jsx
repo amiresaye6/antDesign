@@ -1,4 +1,3 @@
-// Navigation.js
 import React from 'react';
 import { Menu, Layout } from 'antd';
 import { Link } from 'react-router-dom';
@@ -10,8 +9,6 @@ import {
   DashboardOutlined,
   FileTextOutlined,
   AppstoreOutlined,
-  LoginOutlined,
-  UserAddOutlined,
   MailOutlined,
   ContactsOutlined
 } from '@ant-design/icons';
