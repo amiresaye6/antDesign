@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Input, Select, Button, Space, message } from 'antd';
-import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
+import { Table, Input, Select, Button, Space, message, Modal, Form } from 'antd';
+import { SearchOutlined, UserAddOutlined, EditOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import AddUserModal from './AddUserModal';
 
@@ -11,8 +11,10 @@ const UsersList = () => {
   const [searchText, setSearchText] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [editForm] = Form.useForm();
 
-  // Use state for the data to make it reactive
   const [userData, setUserData] = useState([
     { key: '1', name: 'John Doe', email: 'john@example.com', role: 'admin' },
     { key: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'owner' },
@@ -30,6 +32,12 @@ const UsersList = () => {
     setIsModalVisible(false);
   };
 
+  const handleEditCancel = () => {
+    setIsEditModalVisible(false);
+    setEditingUser(null);
+    editForm.resetFields();
+  };
+
   const handleAddUser = (newUser) => {
     setUserData([...userData, newUser]);
   };
@@ -38,6 +46,28 @@ const UsersList = () => {
     const updatedData = userData.filter(user => user.key !== key);
     setUserData(updatedData);
     message.success(t('userDeleted'));
+  };
+
+  const handleEdit = (record) => {
+    setEditingUser(record);
+    setIsEditModalVisible(true);
+    editForm.setFieldsValue({
+      name: record.name,
+      email: record.email,
+      role: record.role,
+    });
+  };
+
+  const handleEditUser = (values) => {
+    setUserData(userData.map(user =>
+      user.key === editingUser.key
+        ? { ...user, ...values }
+        : user
+    ));
+    setIsEditModalVisible(false);
+    setEditingUser(null);
+    editForm.resetFields();
+    message.success(t('userUpdated'));
   };
 
   const columns = [
@@ -69,7 +99,13 @@ const UsersList = () => {
       key: 'actions',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="link">{t('edit')}</Button>
+          <Button
+            type="link"
+            icon={<EditOutlined />}
+            onClick={() => handleEdit(record)}
+          >
+            {t('edit')}
+          </Button>
           <Button
             type="link"
             danger
@@ -136,6 +172,56 @@ const UsersList = () => {
         onCancel={handleCancel}
         onAddUser={handleAddUser}
       />
+
+      {/* Edit User Modal */}
+      <Modal
+        title={t('editUser')}
+        open={isEditModalVisible}
+        onCancel={handleEditCancel}
+        footer={[
+          <Button key="cancel" onClick={handleEditCancel}>
+            {t('cancel')}
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => editForm.submit()}>
+            {t('save')}
+          </Button>,
+        ]}
+      >
+        <Form
+          form={editForm}
+          layout="vertical"
+          onFinish={handleEditUser}
+        >
+          <Form.Item
+            name="name"
+            label={t('name')}
+            rules={[{ required: true, message: t('nameRequired') }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label={t('email')}
+            rules={[
+              { required: true, message: t('emailRequired') },
+              { type: 'email', message: t('invalidEmail') },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="role"
+            label={t('role')}
+            rules={[{ required: true, message: t('roleRequired') }]}
+          >
+            <Select>
+              <Option value="admin">{t('admin')}</Option>
+              <Option value="owner">{t('owner')}</Option>
+              <Option value="user">{t('user')}</Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
