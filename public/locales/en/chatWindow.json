@@ -1,0 +1,18 @@
+{
+    "call": "Call",
+    "videoCall": "Video Call",
+    "customerInfo": "Customer Information",
+    "transferChat": "Transfer Chat",
+    "endChat": "End Chat",
+    "blockUser": "Block User",
+    "typeMessage": "Type a message...",
+    "contactDetails": "Contact Details",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "channel": "Channel",
+    "previousInteractions": "Previous Interactions",
+    "notes": "Notes",
+    "addNotesAboutCustomer": "Add notes about this customer...",
+    "saveNotes": "Save Notes"
+}

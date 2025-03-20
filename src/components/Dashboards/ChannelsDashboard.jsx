@@ -28,6 +28,7 @@ import {
   MessageOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -253,15 +254,17 @@ const ChannelsDashboard = () => {
       dataIndex: 'message',
       key: 'message',
       render: (message, record) => (
-        <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <Text ellipsis={{ tooltip: message }} style={{ maxWidth: 400 }}>
-            {message}
-          </Text>
-          <Space>
-            <ClockCircleOutlined style={{ color: '#8c8c8c' }} />
-            <Text type="secondary">{formatTime(record.timestamp)}</Text>
+        <Link to={`/chat/${record.id}`}>
+          <Space direction="vertical" size="small" style={{ width: '100%' }}>
+            <Text ellipsis={{ tooltip: message }} style={{ maxWidth: 400 }}>
+              {message}
+            </Text>
+            <Space>
+              <ClockCircleOutlined style={{ color: '#8c8c8c' }} />
+              <Text type="secondary">{formatTime(record.timestamp)}</Text>
+            </Space>
           </Space>
-        </Space>
+        </Link>
       ),
     },
     {

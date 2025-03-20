@@ -1,0 +1,18 @@
+{
+    "call": "اتصال",
+    "videoCall": "مكالمة فيديو",
+    "customerInfo": "معلومات العميل",
+    "transferChat": "نقل المحادثة",
+    "endChat": "إنهاء المحادثة",
+    "blockUser": "حظر المستخدم",
+    "typeMessage": "اكتب رسالة...",
+    "contactDetails": "تفاصيل الاتصال",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "channel": "القناة",
+    "previousInteractions": "التفاعلات السابقة",
+    "notes": "ملاحظات",
+    "addNotesAboutCustomer": "أضف ملاحظات عن هذا العميل...",
+    "saveNotes": "حفظ الملاحظات"
+}
