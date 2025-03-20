@@ -24,9 +24,9 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
       label: <Link to="/">{t('home')}</Link>,
     },
     {
-      key: '/user-management',
-      icon: <UserOutlined />,
-      label: <Link to="/user-management">{t('userManagement')}</Link>,
+      key: '/posts-dashboard',
+      icon: <FileTextOutlined />,
+      label: <Link to="/posts-dashboard">{t('postsDashboard')}</Link>,
     },
     {
       key: '/channels-dashboard',
@@ -34,35 +34,30 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
       label: <Link to="/channels-dashboard">{t('channelsDashboard')}</Link>,
     },
     {
-      key: '/posts-dashboard',
-      icon: <FileTextOutlined />,
-      label: <Link to="/posts-dashboard">{t('postsDashboard')}</Link>,
+      key: '/crm',
+      icon: <ContactsOutlined />,
+      label: <Link to="/crm">{t('crm')}</Link>,
     },
     {
       key: '/campaigns',
-      icon: <MailOutlined />, // Represents marketing/email campaigns
+      icon: <MailOutlined />,
       label: <Link to="/campaigns">{t('campaigns')}</Link>,
     },
     {
-      key: '/crm',
-      icon: <ContactsOutlined />, // Represents customer contacts/data
-      label: <Link to="/crm">{t('crm')}</Link>,
+      key: '/ai',
+      icon: <DashboardOutlined />, // Replace with a more appropriate AI-related icon if available
+      label: <Link to="/ai">{t('ai')}</Link>,
+    },
+    {
+      key: '/user-management',
+      icon: <UserOutlined />,
+      label: <Link to="/user-management">{t('userManagement')}</Link>,
     },
     {
       key: '/overview',
       icon: <DashboardOutlined />,
-      label: <Link to="/overview">{t('overview')}</Link>,
+      label: <Link to="/overview">{t('insights')}</Link>,
     },
-    // {
-    //   key: '/login',
-    //   icon: <LoginOutlined />,
-    //   label: <Link to="/login">{t('login')}</Link>,
-    // },
-    // {
-    //   key: '/signup',
-    //   icon: <UserAddOutlined />,
-    //   label: <Link to="/signup">{t('signup')}</Link>,
-    // },
   ];
 
   return (
