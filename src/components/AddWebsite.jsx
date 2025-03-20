@@ -30,6 +30,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { addWebsite } from '../store/slices/websitesSlice';
+import GoBackButton from './GoBackButton';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -105,6 +106,8 @@ const AddWebsite = () => {
   };
 
   return (
+    <>
+    <GoBackButton tooltipText="Return to previous page" buttonType="primary" style={{marginBottom: "15px"}}/>
     <Card title={t('addNewWebsite')} style={{ width: '100%' }}>
       <Form
         form={form}
@@ -243,6 +246,8 @@ const AddWebsite = () => {
         </Form.Item>
       </Form>
     </Card>
+    </>
+
   );
 };
 
