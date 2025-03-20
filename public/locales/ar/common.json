@@ -17,6 +17,7 @@
   "postsDashboard": "المنشورات",
   "campaigns": "الحملات",
   "crm": "إدارة علاقات العملاء",
-  "overview": "نظرة عامة",
-  "userManagement": "إدارة المستخدم"
+  "insights": "التحليلات",
+  "userManagement": "إدارة المستخدم",
+  "ai": "الذكاء الاصطناعي"
 }

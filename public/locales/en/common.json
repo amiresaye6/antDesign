@@ -17,6 +17,7 @@
   "postsDashboard": "Posts",
   "campaigns": "Campaigns",
   "crm": "CRM",
-  "overview": "Overview",
-  "userManagement": "User Management"
+  "insights": "Insights",
+  "userManagement": "User Management",
+  "ai": "AI"
 }
