@@ -8,7 +8,7 @@ import LoginCard from '../components/Auth/loginCard';
 
 const { Content } = Layout;
 
-const AuthLayout = ({ direction, isDarkMode, onLogin }) => {
+const AuthLayout = ({ direction, isDarkMode,  }) => {
   const { token } = theme.useToken();
 
   return (
@@ -20,8 +20,8 @@ const AuthLayout = ({ direction, isDarkMode, onLogin }) => {
         background: isDarkMode ? '#121212' : token.colorBgContainer,
       }}>
         <Routes>
-          <Route path="/login" element={<LoginCard onLogin={onLogin} />} />
-          <Route path="/signup" element={<SignupCard onSignup={onLogin} />} />
+          <Route path="/login" element={<LoginCard />} />
+          <Route path="/signup" element={<SignupCard />} />
           <Route path="/forgotPassword" element={<ForgotPasswordCard />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
