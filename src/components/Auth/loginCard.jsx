@@ -32,8 +32,7 @@ const LoginCard = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            message.success(t('loginSuccessful')).then(() => window.location.reload());
-            // navigate('/');
+            message.success(t('loginSuccessful')).then(() => navigate('/')); // Redirect to home after login
         }
     }, [isAuthenticated, navigate, t]);
 

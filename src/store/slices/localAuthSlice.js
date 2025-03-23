@@ -1,63 +1,84 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import baseUrl from '../../Links';
 
-// Mock user database (stored in memory for simplicity)
-// In a real app, this could be persisted in localStorage or an actual DB
+// Async thunk for login with API
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${baseUrl}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Invalid email or password');
+      }
+
+      const data = await response.json();
+      return {
+        authToken: data.token,
+        user: data.user_id,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Async thunk for signup with API
+export const signupUser = createAsyncThunk(
+  'auth/signupUser',
+  async ({ firstName, lastName, email, password }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${baseUrl}/users/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'User creation failed');
+      }
+
+      const data = await response.json();
+      return {
+        authToken: data.token,
+        user: data.user_id,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Mock utility to simulate async delay (used for mock thunks)
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Mock user database (for reset password flow simulation)
 const mockUsers = [
   {
     email: 'test@gmail.com',
     password: '123', // In production, this would be hashed
     firstName: 'Test',
     lastName: 'User',
-    resetCode: null, // For password reset simulation
+    resetCode: null,
   },
 ];
 
-// Utility to simulate async delay (mimics network latency)
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// Async thunk for login
-export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  async ({ email, password }, { rejectWithValue }) => {
-    try {
-      await delay(1500); // Simulate network delay
-      const user = mockUsers.find((u) => u.email === email && u.password === password);
-      if (!user) {
-        throw new Error('Invalid email or password');
-      }
-      return {
-        authToken: `mock-authToken-${Math.random().toString(36).substring(2)}`, // Mock JWT-like authToken
-        user: { email: user.email, firstName: user.firstName, lastName: user.lastName },
-      };
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-// Async thunk for signup
-export const signupUser = createAsyncThunk(
-  'auth/signupUser',
-  async ({ firstName, lastName, email, password }, { rejectWithValue }) => {
-    try {
-      await delay(1500); // Simulate network delay
-      const existingUser = mockUsers.find((u) => u.email === email);
-      if (existingUser) {
-        throw new Error('User with this email already exists');
-      }
-      const newUser = { email, password, firstName, lastName, resetCode: null };
-      mockUsers.push(newUser); // Add to mock DB
-      return {
-        authToken: `mock-authToken-${Math.random().toString(36).substring(2)}`,
-        user: { email, firstName, lastName },
-      };
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-// Async thunk for requesting a reset code (step 1 of forgot password)
+// Async thunk for requesting a reset code (mock implementation)
 export const requestResetCode = createAsyncThunk(
   'auth/requestResetCode',
   async ({ email }, { rejectWithValue }) => {
@@ -67,10 +88,9 @@ export const requestResetCode = createAsyncThunk(
       if (!user) {
         throw new Error('No user found with this email');
       }
-      // Generate a mock 6-digit code
       const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
       user.resetCode = resetCode; // Store the code in mock DB
-      console.log(`Reset code for ${email}: ${resetCode}`); // For testing, log it
+      console.log(`Reset code for ${email}: ${resetCode}`); // For testing
       return { email };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -78,7 +98,7 @@ export const requestResetCode = createAsyncThunk(
   }
 );
 
-// Async thunk for resetting password (step 2 and 3 combined)
+// Async thunk for resetting password (mock implementation)
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
   async ({ email, code, newPassword }, { rejectWithValue }) => {
@@ -153,7 +173,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Request Reset Code
+      // Request Reset Code (mock)
       .addCase(requestResetCode.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -167,7 +187,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Reset Password
+      // Reset Password (mock)
       .addCase(resetPassword.pending, (state) => {
         state.loading = true;
         state.error = null;
