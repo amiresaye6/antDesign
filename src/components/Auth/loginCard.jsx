@@ -32,7 +32,7 @@ const LoginCard = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            message.success(t('loginSuccessful')).then(() => window.location.reload()); // Refresh the window after login
+            message.success(t('loginSuccessful'), 1).then(() => window.location.reload()); // Refresh the window after login
         }
     }, [isAuthenticated, navigate, t]);
 

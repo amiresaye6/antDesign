@@ -12,6 +12,7 @@ import UserManagement from '../components/Dashboards/userManagment';
 import NotImplementedYet from '../components/NotImplementedYet';
 import CampaignsDashboard from '../components/Dashboards/CampaignsDashboard';
 import ChatWindow from '../components/ChatWindow';
+import WebsiteManager from '../components/WebsiteManager';
 
 const { Content } = Layout;
 
@@ -59,13 +60,14 @@ const MainLayout = ({
             <Route path="/" element={<Home />} />
             <Route path="/overview" element={<OverView />} />
             <Route path="/user-management" element={<UserManagement />} />
-            <Route path="/channels-dashboard" element={<ChannelsDashboard />} />
+            <Route path="/channels-dashboard/:website-id" element={<ChannelsDashboard />} />
             <Route path="/add-website" element={<AddWebsite />} />
             <Route path="/campaigns" element={<CampaignsDashboard />} />
             <Route path="/crm" element={<NotImplementedYet />} />
             <Route path="/posts-dashboard" element={<NotImplementedYet />} />
             <Route path="/ai" element={<NotImplementedYet />} />
             <Route path="/chat/:chatid" element={<ChatWindow />} />
+            <Route path="/manage-website/:websiteId" element={<WebsiteManager />} />
 
             {/* Catch-all route for any unmatched path */}
             <Route path="*" element={<Navigate to="/" replace />} />

@@ -28,9 +28,13 @@ import {
   InstagramOutlined,
   YoutubeOutlined,
   DashboardOutlined,
-  LinkOutlined
+  LinkOutlined,
+  PlayCircleOutlined,
+  MessageOutlined,
+  CommentOutlined,
+  CameraOutlined
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   selectAllWebsites,
@@ -51,32 +55,32 @@ const Home = () => {
   const websites = useSelector(selectAllWebsites);
   const loading = useSelector(selectWebsitesLoading);
 
-  // Debug log to check initial state
-  console.log('Initial state - Websites:', websites, 'Loading:', loading);
-
   const fetchWebsites = useCallback(async () => {
-    console.log('Starting fetchWebsites...');
     dispatch(fetchWebsitesStart());
 
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      // In a real app with API, you'd make the call here and then dispatch success with the data
-      // Since we're using mock data, we should dispatch the success action with the mock data we already have
-      // This ensures the loading state is properly reset
+
+      // In a real app, you would fetch data from an API
+      // For now, we'll simulate a successful API response by
+      // dispatching the success action with mock data from the store
+
+      // Fix: Don't use local websites which creates circular dependency
+      // Instead, in a real app this would come from your API response
+      // For demo, we'll just use the initialState data that's in the Redux store
       dispatch(fetchWebsitesSuccess(websites));
-      console.log('Fetch completed. Current websites:', websites);
     } catch (error) {
       console.error('Error fetching websites:', error);
     }
-  }, [dispatch, websites]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]); // Remove websites from dependency array
 
   useEffect(() => {
     fetchWebsites();
-  }, [fetchWebsites]); // Using the memoized function
+  }, [fetchWebsites]);
 
   const handleDeleteWebsite = (id) => {
-    console.log('Deleting website with id:', id);
     dispatch(deleteWebsite(id));
   };
 
@@ -90,6 +94,14 @@ const Home = () => {
         return <InstagramOutlined style={{ color: '#E4405F' }} />;
       case 'youtube':
         return <YoutubeOutlined style={{ color: '#FF0000' }} />;
+      case 'tiktok':
+        return <PlayCircleOutlined style={{ color: '#000000' }} />;
+      case 'whatsapp':
+        return <MessageOutlined style={{ color: '#25D366' }} />;
+      case 'threads':
+        return <CommentOutlined style={{ color: '#000000' }} />;
+      case 'snapchat':
+        return <CameraOutlined style={{ color: '#FFFC00' }} />;
       default:
         return <GlobalOutlined />;
     }
@@ -110,15 +122,26 @@ const Home = () => {
 
   const getWebsiteDropdownMenu = (website) => (
     <Menu>
-      <Menu.Item key="1" icon={<EditOutlined />} onClick={() => navigate(`/edit-website/${website.id}`)}>
-        {t('dropdown.edit')}
-      </Menu.Item>
-      <Menu.Item key="2" icon={<SettingOutlined />} onClick={() => navigate(`/website-settings/${website.id}`)}>
-        {t('dropdown.settings')}
+      <Menu.Item key="1" icon={<EditOutlined />}>
+        <Link
+          to={`/manage-website/${website.id}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {t('dropdown.manage')}
+        </Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="3" danger icon={<DeleteOutlined />} onClick={() => handleDeleteWebsite(website.id)}>
-        {t('dropdown.delete')}
+      <Menu.Item key="2" danger icon={<DeleteOutlined />}>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleDeleteWebsite(website.id);
+          }}
+        >
+          {t('dropdown.delete')}
+        </a>
       </Menu.Item>
     </Menu>
   );
@@ -147,9 +170,6 @@ const Home = () => {
       </Col>
     ));
   };
-
-  // Final debug log before rendering
-  console.log('Rendering with:', { websites, loading });
 
   return (
     <>
@@ -221,7 +241,7 @@ const Home = () => {
                 bodyStyle={{ padding: '16px' }}
                 hoverable
                 className="website-card"
-                onClick={() => navigate(`/website-dashboard/${website.id}`)}
+                onClick={() => navigate(`/channels-dashboard/${website.id}`)}
               >
                 <div style={{ position: 'relative' }}>
                   <div

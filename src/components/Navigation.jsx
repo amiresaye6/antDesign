@@ -31,7 +31,7 @@ const Navigation = ({ collapsed, setCollapsed, currentPath }) => {
     {
       key: '/channels-dashboard',
       icon: <AppstoreOutlined />,
-      label: <Link to="/channels-dashboard">{t('channelsDashboard')}</Link>,
+      label: <Link to="/channels-dashboard/1">{t('channelsDashboard')}</Link>,
     },
     {
       key: '/crm',

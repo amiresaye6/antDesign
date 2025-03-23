@@ -149,7 +149,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.authToken = action.payload.authToken;
-        state.user = action.payload.user;
+        state.user = action.payload.user_id;
         state.isAuthenticated = true;
         localStorage.setItem('authToken', action.payload.authToken);
       })
@@ -165,7 +165,7 @@ const authSlice = createSlice({
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
         state.authToken = action.payload.authToken;
-        state.user = action.payload.user;
+        state.user = action.payload.user_id;
         state.isAuthenticated = true;
         localStorage.setItem('authToken', action.payload.authToken);
       })

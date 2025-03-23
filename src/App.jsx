@@ -52,11 +52,6 @@ const App = () => {
     i18n.changeLanguage(value);
   };
 
-  const handleLogin = (token) => {
-    localStorage.setItem('authToken', token);
-    setIsAuthenticated(true);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     setIsAuthenticated(false);
@@ -88,7 +83,6 @@ const App = () => {
         <AuthLayout
           direction={direction}
           isDarkMode={isDarkMode}
-          onLogin={handleLogin}
         />
       )}
     </ConfigProvider>
