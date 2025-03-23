@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, Select, Button, message } from 'antd';
+import { Modal, Form, Input, Select, Button, message, Row, Col } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
@@ -15,19 +15,13 @@ const AddUserModal = ({ visible, onCancel, onAddUser }) => {
             setLoading(true);
             const values = await form.validateFields();
 
-            // Generate a unique key (in a real app, this would come from the backend)
             const newUser = {
                 ...values,
                 key: `user-${Date.now()}`,
             };
 
-            // Call the parent handler to add the user to the list
             onAddUser(newUser);
-
-            // Success message
             message.success(t('userAddedSuccess'));
-
-            // Reset form and close modal
             form.resetFields();
             onCancel();
         } catch (error) {
@@ -50,18 +44,36 @@ const AddUserModal = ({ visible, onCancel, onAddUser }) => {
                 layout="vertical"
                 name="addUserForm"
             >
-                <Form.Item
-                    name="name"
-                    label={t('name')}
-                    rules={[
-                        { required: true, message: t('nameRequired') },
-                    ]}
-                >
-                    <Input
-                        prefix={<UserOutlined />}
-                        placeholder={t('enterName')}
-                    />
-                </Form.Item>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item
+                            name="firstName"
+                            label={t('firstName')}
+                            rules={[
+                                { required: true, message: t('firstNameRequired') },
+                            ]}
+                        >
+                            <Input
+                                prefix={<UserOutlined />}
+                                placeholder={t('enterFirstName')}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            name="lastName"
+                            label={t('lastName')}
+                            rules={[
+                                { required: true, message: t('lastNameRequired') },
+                            ]}
+                        >
+                            <Input
+                                prefix={<UserOutlined />}
+                                placeholder={t('enterLastName')}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
                 <Form.Item
                     name="email"
