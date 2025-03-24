@@ -13,8 +13,7 @@
     "dashboard": "Dashboard",
     "visit": "Visit",
     "dropdown": {
-        "edit": "Edit",
-        "settings": "Settings",
+        "manage": "Manage",
         "delete": "Delete"
     }
 }

@@ -13,8 +13,7 @@
     "dashboard": "لوحة التحكم",
     "visit": "زيارة",
     "dropdown": {
-        "edit": "تعديل",
-        "settings": "الإعدادات",
+        "manage": "إدارة",
         "delete": "حذف"
     }
 }

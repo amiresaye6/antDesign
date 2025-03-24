@@ -233,7 +233,7 @@ const WebsiteManager = () => {
               <Col xs={24} md={12}>
                 <Form.Item
                   name="status"
-                  label={t('status')}
+                  label={t('statusLable')}
                   rules={[{ required: true, message: t('pleaseSelectStatus') }]}
                 >
                   <Select
