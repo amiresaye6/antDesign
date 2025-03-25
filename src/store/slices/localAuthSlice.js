@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import baseUrl from '../../Links';
 
-// Async thunk for login with API
+// loginUser thunk (updated return structure)
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
@@ -22,7 +22,10 @@ export const loginUser = createAsyncThunk(
       const data = await response.json();
       return {
         authToken: data.token,
-        user: data.user_id,
+        user: {
+          id: data.user_id,
+          email: data.email
+        }
       };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -30,7 +33,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Async thunk for signup with API
+// signupUser thunk (assuming similar response structure)
 export const signupUser = createAsyncThunk(
   'auth/signupUser',
   async ({ firstName, lastName, email, password }, { rejectWithValue }) => {
@@ -56,7 +59,10 @@ export const signupUser = createAsyncThunk(
       const data = await response.json();
       return {
         authToken: data.token,
-        user: data.user_id,
+        user: {
+          id: data.user_id,
+          email: data.email
+        }
       };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -121,26 +127,26 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     authToken: localStorage.getItem('authToken') || null,
-    user: null,
+    user: sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : null,
     isAuthenticated: !!localStorage.getItem('authToken'),
     loading: false,
     error: null,
-    resetStep: 0, // For forgot password flow
-    resetEmail: null, // Store email during reset flow
+    resetStep: 0,
+    resetEmail: null,
   },
   reducers: {
     logout: (state) => {
       state.authToken = null;
       state.user = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
+      sessionStorage.removeItem('user');
     },
     setResetStep: (state, action) => {
       state.resetStep = action.payload;
     },
   },
   extraReducers: (builder) => {
-    // Login
     builder
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -149,31 +155,29 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.authToken = action.payload.authToken;
-        state.user = action.payload.user_id;
+        state.user = action.payload.user;
         state.isAuthenticated = true;
         localStorage.setItem('authToken', action.payload.authToken);
+        sessionStorage.setItem('user', JSON.stringify(action.payload.user));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // Signup
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.authToken = action.payload.authToken;
-        state.user = action.payload.user_id;
-        state.isAuthenticated = true;
-        localStorage.setItem('authToken', action.payload.authToken);
+        state.user = action.payload.user;
+        sessionStorage.setItem('user', JSON.stringify(action.payload.user));
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // Request Reset Code (mock)
+      // [rest of extraReducers remain unchanged]
       .addCase(requestResetCode.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -181,21 +185,20 @@ const authSlice = createSlice({
       .addCase(requestResetCode.fulfilled, (state, action) => {
         state.loading = false;
         state.resetEmail = action.payload.email;
-        state.resetStep = 1; // Move to verification step
+        state.resetStep = 1;
       })
       .addCase(requestResetCode.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // Reset Password (mock)
       .addCase(resetPassword.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(resetPassword.fulfilled, (state) => {
         state.loading = false;
-        state.resetStep = 3; // Success step
-        state.resetEmail = null; // Clear email after success
+        state.resetStep = 3;
+        state.resetEmail = null;
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;

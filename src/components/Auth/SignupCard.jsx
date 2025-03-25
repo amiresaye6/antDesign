@@ -26,7 +26,9 @@ import {
 } from 'antd';
 import enUS from 'antd/lib/locale/en_US';
 import arEG from 'antd/lib/locale/ar_EG';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { signupUser } from '../../store/slices/localAuthSlice'
+import { useDispatch } from 'react-redux';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -38,7 +40,8 @@ const SignupCard = () => {
   const [showTips, setShowTips] = useState(false);
   const [direction, setDirection] = useState('ltr');
   const [locale, setLocale] = useState(enUS);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (i18n.language === 'ar') {
       setDirection('rtl');
@@ -73,17 +76,30 @@ const SignupCard = () => {
   };
 
   const onFinish = (values) => {
+    const { firstName, lastName, email, password } = values;
     setLoading(true);
-    console.log('Received signup values: ', values);
-    setTimeout(() => {
-      setLoading(false);
-      message.success(t('accountCreated'));
-    }, 1500);
+    dispatch(signupUser({ firstName, lastName, email, password }))
+      .unwrap()
+      .then(() => {
+        setLoading(false);
+        form.resetFields();
+        message.success(t('accountCreated'), 1).then(() => {
+          navigate('/login');
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error === 'Email already registered') {
+          message.error(t('emailAlreadyRegistered'));
+        } else {
+          message.error(t('signupFailed'));
+        }
+      });
   };
 
   return (
     <ConfigProvider locale={locale} direction={direction}>
-      <Flex justify="center" align="center" style={{ minHeight: '100vh'}}>
+      <Flex justify="center" align="center" style={{ minHeight: '100vh' }}>
         <Card
           style={{
             width: 440,

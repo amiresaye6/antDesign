@@ -32,12 +32,24 @@ const LoginCard = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            message.success(t('loginSuccessful'), 1).then(() => window.location.reload()); // Refresh the window after login
+            message.success(t('loginSuccessful'), 1).then(() => {
+                navigate('/'); // Navigate to the home page after login
+                window.location.reload(); // Reload the page
+            });
         }
     }, [isAuthenticated, navigate, t]);
 
     const onFinish = (values) => {
-        dispatch(loginUser({ email: values.email, password: values.password }));
+        dispatch(loginUser({ email: values.email, password: values.password }))
+            .unwrap()
+            .catch((err) => {
+                // More specific error handling
+                if (err === 'Invalid email or password') {
+                    message.error(t('invalidCredentials'));
+                } else {
+                    message.error(t('loginFailed', { ns: 'common' }));
+                }
+            });
     };
 
     const handleGoogleLogin = () => {
